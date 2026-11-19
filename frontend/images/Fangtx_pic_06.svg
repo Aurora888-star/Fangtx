@@ -1,0 +1,14 @@
+<!-- 姓名：方天箫 | 学号：24001010733 | 时间：2026-11-19 | 大模型：DeepSeek-V4.1-Flash -->
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1e3c72"/><stop offset="1" stop-color="#2a8fd6"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#g)"/>
+  <path d="M430 330 L500 170 L560 260 L620 130 L700 330 Z" fill="#ffffff" opacity="0.12"/>
+  <path d="M470 330 L530 220 L600 330 Z" fill="#ffffff" opacity="0.18"/>
+  <circle cx="650" cy="100" r="45" fill="#ffe082" opacity="0.85"/>
+  <text x="60" y="240" font-family="Microsoft YaHei, sans-serif" font-size="72" font-weight="bold" fill="#ffffff">阅读书香</text>
+  <text x="64" y="300" font-family="Arial, sans-serif" font-size="26" fill="#d6e8f7" letter-spacing="4">READING BOOKS</text>
+</svg>

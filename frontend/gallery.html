@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!--
+  姓名：方天箫 | 学号：24001010733 | 时间：2026-11-19 | 大模型：DeepSeek-V4.1-Flash
+  文件：gallery.html
+  说明：图文列表页，从后端 /api/gallery 接口读取数据，展示封面图片、文字内容、接口链接与原始数据。
+-->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="方天箫 · 知乎的模仿与制作 · 图文列表" />
+  <title>图文列表 · 知乎的模仿与制作</title>
+  <link rel="stylesheet" href="css/Fangtx_gallery.css" />
+</head>
+<body>
+  <!-- Canvas 背景动画 -->
+  <canvas id="Fangtx_bgCanvas" class="Fangtx_bgCanvas" aria-hidden="true"></canvas>
+  <div class="Fangtx_aurora Fangtx_auroraLeft" aria-hidden="true"></div>
+  <div class="Fangtx_aurora Fangtx_auroraRight" aria-hidden="true"></div>
+
+  <div class="Fangtx_page">
+    <!-- 顶部栏 -->
+    <header class="Fangtx_topbar">
+      <div class="Fangtx_brand">
+        <span class="Fangtx_brandMark">知</span>
+        <span class="Fangtx_brandText">知乎 <em>模仿项目</em></span>
+      </div>
+      <a class="Fangtx_backLink" href="index.html">← 返回首页</a>
+    </header>
+
+    <!-- 主体 -->
+    <main class="Fangtx_main">
+      <div class="Fangtx_pageHead">
+        <h1 class="Fangtx_pageTitle">图文精选</h1>
+        <p class="Fangtx_pageSubtitle">数据来自 MySQL 数据表 Fangtx_gallery · 封面图片为本地 SVG</p>
+      </div>
+
+      <!-- 后端接口链接展示区 -->
+      <section class="Fangtx_apiBar">
+        <div class="Fangtx_apiHead">
+          <span class="Fangtx_apiBadge">后端接口</span>
+          <span class="Fangtx_apiMethod">GET</span>
+        </div>
+        <a class="Fangtx_apiLink" id="Fangtx_apiLink" href="/api/gallery" target="_blank" rel="noopener">
+          <span class="Fangtx_apiPath">/api/gallery</span>
+          <span class="Fangtx_apiGo" aria-hidden="true">↗ 在新窗口查看 JSON</span>
+        </a>
+        <p class="Fangtx_apiTip">点击上方链接可直接在浏览器打开接口返回的原始数据；下方为渲染后的图文数据内容。</p>
+      </section>
+
+      <!-- 状态提示区 -->
+      <div class="Fangtx_result Fangtx_resultHidden" id="Fangtx_result" role="status" aria-live="polite"></div>
+
+      <!-- 分类筛选 -->
+      <div class="Fangtx_filterBar" id="Fangtx_filterBar">
+        <button class="Fangtx_filterBtn Fangtx_filterActive" type="button" data-Fangtx-category="全部">全部</button>
+      </div>
+
+      <!-- 图文列表 -->
+      <section class="Fangtx_gallerySection">
+        <div class="Fangtx_galleryGrid" id="Fangtx_galleryGrid">
+          <!-- 由 JS 动态渲染 -->
+        </div>
+      </section>
+
+      <!-- 原始 JSON 数据展示 -->
+      <section class="Fangtx_rawSection">
+        <button class="Fangtx_rawToggle" type="button" id="Fangtx_rawToggle" aria-expanded="false">
+          <span>查看接口返回的原始数据（JSON）</span>
+          <span class="Fangtx_rawArrow" aria-hidden="true">▾</span>
+        </button>
+        <pre class="Fangtx_rawBox" id="Fangtx_rawBox" hidden></pre>
+      </section>
+    </main>
+
+    <footer class="Fangtx_footer">
+      <p>方天箫 · 24001010733 · 知乎的模仿与制作（模仿）</p>
+    </footer>
+  </div>
+
+  <script src="js/Fangtx_gallery.js"></script>
+</body>
+</html>

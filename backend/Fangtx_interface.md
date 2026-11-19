@@ -176,3 +176,53 @@ GET http://localhost:8733/api/news
 - **修改时间**：2026-11-19 22:12:00
 
 ---
+
+## 接口：图文列表
+
+- **接口路径**：`/api/gallery`
+- **HTTP 方法**：GET
+- **请求参数**：无
+
+请求示例：
+
+```
+GET http://localhost:8733/api/gallery
+```
+
+- **响应格式（成功）**：
+
+```json
+{
+  "code": 0,
+  "msg": "图文列表获取成功",
+  "data": {
+    "total": 10,
+    "list": [
+      {
+        "Fangtx_id": 1,
+        "Fangtx_title": "当人工智能走进日常生活",
+        "Fangtx_image": "images/Fangtx_pic_01.svg",
+        "Fangtx_category": "人工智能",
+        "Fangtx_description": "从智能音箱到自动驾驶...",
+        "Fangtx_author": "林知远",
+        "Fangtx_publish_time": "2026-11-18T01:00:00.000Z",
+        "Fangtx_likes": 2340
+      }
+    ]
+  }
+}
+```
+
+- **响应格式（失败）**：
+
+```json
+{
+  "code": 5004,
+  "msg": "图文列表查询失败: ...",
+  "data": null
+}
+```
+
+- **修改时间**：2026-11-19 22:17:00
+
+---

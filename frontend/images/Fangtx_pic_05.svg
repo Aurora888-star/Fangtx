@@ -1,0 +1,15 @@
+<!-- 姓名：方天箫 | 学号：24001010733 | 时间：2026-11-19 | 大模型：DeepSeek-V4.1-Flash -->
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7b1fa2"/><stop offset="1" stop-color="#e91e63"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#g)"/>
+  <g stroke="#ffffff" stroke-width="10" stroke-linecap="round" opacity="0.25">
+    <line x1="560" y1="120" x2="560" y2="330"/><line x1="600" y1="90" x2="600" y2="360"/>
+    <line x1="640" y1="130" x2="640" y2="320"/><line x1="680" y1="160" x2="680" y2="290"/><line x1="720" y1="190" x2="720" y2="260"/>
+  </g>
+  <text x="60" y="240" font-family="Microsoft YaHei, sans-serif" font-size="72" font-weight="bold" fill="#ffffff">音乐旋律</text>
+  <text x="64" y="300" font-family="Arial, sans-serif" font-size="26" fill="#fce4ec" letter-spacing="4">MUSIC MELODY</text>
+</svg>

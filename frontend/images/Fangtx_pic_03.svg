@@ -1,0 +1,14 @@
+<!-- 姓名：方天箫 | 学号：24001010733 | 时间：2026-11-19 | 大模型：DeepSeek-V4.1-Flash -->
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3e2723"/><stop offset="1" stop-color="#8d6e63"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#g)"/>
+  <circle cx="600" cy="225" r="150" fill="#ffffff" opacity="0.1"/>
+  <circle cx="600" cy="225" r="105" fill="#d7ccc8" opacity="0.35"/>
+  <circle cx="600" cy="225" r="60" fill="#4e342e" opacity="0.55"/>
+  <text x="60" y="240" font-family="Microsoft YaHei, sans-serif" font-size="72" font-weight="bold" fill="#ffffff">咖啡时光</text>
+  <text x="64" y="300" font-family="Arial, sans-serif" font-size="26" fill="#efebe9" letter-spacing="4">COFFEE MOMENT</text>
+</svg>

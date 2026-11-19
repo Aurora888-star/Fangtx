@@ -1,0 +1,16 @@
+<!-- 姓名：方天箫 | 学号：24001010733 | 时间：2026-11-19 | 大模型：DeepSeek-V4.1-Flash -->
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#141e30"/><stop offset="1" stop-color="#243b55"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#g)"/>
+  <g stroke="#6aa8ff" stroke-width="2" opacity="0.4" fill="none">
+    <rect x="500" y="130" width="220" height="190" rx="10"/>
+    <line x1="500" y1="180" x2="720" y2="180"/><line x1="500" y1="270" x2="720" y2="270"/>
+    <circle cx="610" cy="225" r="40"/>
+  </g>
+  <text x="60" y="240" font-family="Microsoft YaHei, sans-serif" font-size="72" font-weight="bold" fill="#ffffff">数码科技</text>
+  <text x="64" y="300" font-family="Arial, sans-serif" font-size="26" fill="#cfe0ff" letter-spacing="4">DIGITAL TECH</text>
+</svg>

@@ -1,0 +1,15 @@
+<!-- 姓名：方天箫 | 学号：24001010733 | 时间：2026-11-19 | 大模型：DeepSeek-V4.1-Flash -->
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff512f"/><stop offset="1" stop-color="#f09819"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#g)"/>
+  <g fill="none" stroke="#ffffff" stroke-width="8" opacity="0.22">
+    <circle cx="620" cy="225" r="70"/><circle cx="620" cy="225" r="110"/><circle cx="620" cy="225" r="150"/>
+  </g>
+  <path d="M580 180 L670 225 L580 270 Z" fill="#ffffff" opacity="0.5"/>
+  <text x="60" y="240" font-family="Microsoft YaHei, sans-serif" font-size="72" font-weight="bold" fill="#ffffff">活力健身</text>
+  <text x="64" y="300" font-family="Arial, sans-serif" font-size="26" fill="#fff3e0" letter-spacing="4">FITNESS ENERGY</text>
+</svg>
