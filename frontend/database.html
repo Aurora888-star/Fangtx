@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!--
+  姓名：方天箫 | 学号：24001010733 | 时间：2026-11-19 | 大模型：DeepSeek-V4.1-Flash
+  文件：database.html
+  说明：MySQL 数据库连接测试页，输入用户名与密码，经后端接口校验并给出成功/错误提示。
+-->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="方天箫 · 知乎的模仿与制作 · MySQL 数据库连接测试" />
+  <title>数据库连接 · 知乎的模仿与制作</title>
+  <link rel="stylesheet" href="css/Fangtx_database.css" />
+</head>
+<body>
+  <!-- Canvas 背景动画 -->
+  <canvas id="Fangtx_bgCanvas" class="Fangtx_bgCanvas" aria-hidden="true"></canvas>
+  <div class="Fangtx_aurora Fangtx_auroraLeft" aria-hidden="true"></div>
+  <div class="Fangtx_aurora Fangtx_auroraRight" aria-hidden="true"></div>
+
+  <div class="Fangtx_page">
+    <!-- 顶部栏 -->
+    <header class="Fangtx_topbar">
+      <div class="Fangtx_brand">
+        <span class="Fangtx_brandMark">知</span>
+        <span class="Fangtx_brandText">知乎 <em>模仿项目</em></span>
+      </div>
+      <a class="Fangtx_backLink" href="index.html">← 返回首页</a>
+    </header>
+
+    <!-- 主体 -->
+    <main class="Fangtx_main">
+      <section class="Fangtx_dbCard">
+        <div class="Fangtx_dbHead">
+          <span class="Fangtx_dbIcon" aria-hidden="true">DB</span>
+          <div>
+            <h1 class="Fangtx_dbTitle">数据库连接测试</h1>
+            <p class="Fangtx_dbSubtitle">数据库类型：MySQL · 输入凭据后由后端发起连接验证</p>
+          </div>
+        </div>
+
+        <!-- 连接表单 -->
+        <form class="Fangtx_form" id="Fangtx_dbForm" novalidate>
+          <label class="Fangtx_field">
+            <span class="Fangtx_fieldLabel">用户名</span>
+            <span class="Fangtx_inputWrap">
+              <span class="Fangtx_inputIcon" aria-hidden="true">◎</span>
+              <input
+                class="Fangtx_input"
+                type="text"
+                id="Fangtx_username"
+                name="username"
+                placeholder="请输入数据库用户名"
+                autocomplete="off"
+              />
+            </span>
+          </label>
+
+          <label class="Fangtx_field">
+            <span class="Fangtx_fieldLabel">密码</span>
+            <span class="Fangtx_inputWrap">
+              <span class="Fangtx_inputIcon" aria-hidden="true">✦</span>
+              <input
+                class="Fangtx_input"
+                type="password"
+                id="Fangtx_password"
+                name="password"
+                placeholder="请输入数据库密码"
+                autocomplete="off"
+              />
+            </span>
+          </label>
+
+          <button class="Fangtx_submit" type="submit" id="Fangtx_submitBtn">
+            <span class="Fangtx_submitText">连接数据库</span>
+          </button>
+        </form>
+
+        <!-- 结果提示区 -->
+        <div class="Fangtx_result Fangtx_resultHidden" id="Fangtx_result" role="status" aria-live="polite"></div>
+
+        <!-- 连接信息（成功后显示） -->
+        <div class="Fangtx_infoBox Fangtx_infoHidden" id="Fangtx_infoBox">
+          <h2 class="Fangtx_infoTitle">连接信息</h2>
+          <dl class="Fangtx_infoList" id="Fangtx_infoList"></dl>
+        </div>
+      </section>
+    </main>
+
+    <footer class="Fangtx_footer">
+      <p>方天箫 · 24001010733 · 知乎的模仿与制作（模仿）</p>
+    </footer>
+  </div>
+
+  <script src="js/Fangtx_database.js"></script>
+</body>
+</html>

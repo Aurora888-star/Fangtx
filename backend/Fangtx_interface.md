@@ -71,3 +71,58 @@ GET http://localhost:8733/api/db/health
 - **修改时间**：2026-11-19 15:10:00
 
 ---
+
+## 接口：数据库连接测试
+
+- **接口路径**：`/api/db/connect`
+- **HTTP 方法**：POST
+- **请求参数**：JSON
+
+请求示例：
+
+```
+POST http://localhost:8733/api/db/connect
+Content-Type: application/json
+
+{ "username": "root", "password": "见 backend/.env 的 DB_PASSWORD" }
+```
+
+- **响应格式（成功）**：
+
+```json
+{
+  "code": 0,
+  "msg": "数据库连接成功",
+  "data": {
+    "host": "localhost",
+    "user": "root",
+    "database": "webdesign",
+    "mysqlVersion": "8.0.30",
+    "time": "2026-11-19T14:10:00.000Z"
+  }
+}
+```
+
+- **响应格式（失败 - 凭据错误）**：
+
+```json
+{
+  "code": 5002,
+  "msg": "数据库连接失败: Access denied for user 'root'@'localhost' (using password: YES)",
+  "data": null
+}
+```
+
+- **响应格式（失败 - 参数缺失）**：
+
+```json
+{
+  "code": 4001,
+  "msg": "请输入用户名和密码",
+  "data": null
+}
+```
+
+- **修改时间**：2026-11-19 22:10:00
+
+---

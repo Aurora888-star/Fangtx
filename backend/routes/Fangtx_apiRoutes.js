@@ -6,8 +6,10 @@
 const Fangtx_express = require('express');
 const Fangtx_router = Fangtx_express.Router();
 const { Fangtx_healthCheck, Fangtx_dbCheck } = require('../controllers/Fangtx_healthController');
+const { Fangtx_dbConnect } = require('../controllers/Fangtx_dbConnectController');
 
 Fangtx_router.get('/health', Fangtx_healthCheck);
 Fangtx_router.get('/db/health', Fangtx_dbCheck);
+Fangtx_router.post('/db/connect', Fangtx_dbConnect);
 
 module.exports = Fangtx_router;

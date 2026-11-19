@@ -55,6 +55,7 @@ npm start     # 固定监听端口 8733
 | --- | --- | --- |
 | `/api/health` | GET | 服务健康检查 |
 | `/api/db/health` | GET | MySQL 连接健康检查 |
+| `/api/db/connect` | POST | 按输入的用户名/密码测试 MySQL 连接 |
 
 所有接口以 `/api/` 为前缀；统一响应格式为 `{ "code": 0, "msg": "提示信息", "data": {...} }`，`code=0` 表示成功，非 0 表示失败。详细参数与响应示例见 `backend/Fangtx_interface.md`。
 
@@ -63,5 +64,6 @@ npm start     # 固定监听端口 8733
 | 页面 | 路径 | 说明 |
 | --- | --- | --- |
 | 首页 | frontend/index.html | 项目入口、个人信息、已完成页面链接、Canvas 动画 |
+| 数据库连接 | frontend/database.html | MySQL 连接测试：输入用户名/密码，成功/错误提示 |
 
 新建 HTML 页面后，请在 `frontend/index.html` 的 `.Fangtx_navGrid` 中追加对应的 `.Fangtx_navCard` 超链接（文件名含 `detail` 的页面除外）。
