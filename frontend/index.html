@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!--
+  姓名：方天箫 | 学号：24001010733 | 时间：2026-11-19 | 大模型：DeepSeek-V4.1-Flash
+  文件：index.html
+  说明：知乎模仿项目首页，含 Canvas 背景动画与页面链接导航。
+-->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>方天箫 · 知乎的模仿与制作</title>
+  <link rel="stylesheet" href="css/Fangtx_style.css" />
+</head>
+<body>
+  <!-- Canvas 背景动画 -->
+  <canvas id="Fangtx_bgCanvas" class="Fangtx_bgCanvas"></canvas>
+
+  <div class="Fangtx_page">
+    <!-- 头部信息 -->
+    <header class="Fangtx_header">
+      <div class="Fangtx_logo">知乎</div>
+      <div class="Fangtx_titleGroup">
+        <h1 class="Fangtx_title">知乎的模仿与制作</h1>
+        <p class="Fangtx_subtitle">Project Category · <span class="Fangtx_tag">模仿</span></p>
+      </div>
+      <div class="Fangtx_userCard">
+        <p class="Fangtx_userName">方天箫</p>
+        <p class="Fangtx_userId">学号：24001010733</p>
+      </div>
+    </header>
+
+    <!-- 页面链接导航 -->
+    <main class="Fangtx_main">
+      <h2 class="Fangtx_sectionTitle">页面导航</h2>
+      <div class="Fangtx_navGrid" id="Fangtx_navGrid">
+        <!-- 已完成页面超链接（新建页面后在此追加） -->
+        <a class="Fangtx_navCard" href="index.html">
+          <span class="Fangtx_cardIcon">01</span>
+          <span class="Fangtx_cardName">首页</span>
+          <span class="Fangtx_cardDesc">项目入口 · 页面导航</span>
+        </a>
+      </div>
+    </main>
+
+    <footer class="Fangtx_footer">
+      <p>方天箫 · 24001010733 · 知乎的模仿与制作（模仿）</p>
+    </footer>
+  </div>
+
+  <script src="js/Fangtx_main.js"></script>
+</body>
+</html>

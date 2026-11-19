@@ -1,0 +1,18 @@
+{
+  "name": "fangtx-webdesign-backend",
+  "version": "1.0.0",
+  "description": "知乎模仿项目后端服务（Node.js + Express）",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "author": "方天箫 24001010733",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mysql2": "^3.11.3"
+  }
+}

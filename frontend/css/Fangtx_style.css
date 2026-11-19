@@ -1,0 +1,253 @@
+/*
+ * 姓名：方天箫 | 学号：24001010733 | 时间：2026-11-19 | 大模型：DeepSeek-V4.1-Flash
+ * 文件：css/Fangtx_style.css
+ * 说明：知乎模仿项目首页样式。
+ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --Fangtx_blue: #1772f6;
+  --Fangtx_blueLight: #4a9bff;
+  --Fangtx_bg: #0a1020;
+  --Fangtx_panel: rgba(255, 255, 255, 0.06);
+  --Fangtx_border: rgba(255, 255, 255, 0.12);
+  --Fangtx_text: #eaf1ff;
+  --Fangtx_textSub: #9fb2d0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+  background: var(--Fangtx_bg);
+  color: var(--Fangtx_text);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ================= Canvas 背景动画 ================= */
+.Fangtx_bgCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  display: block;
+  background: radial-gradient(circle at 50% 30%, #10203f 0%, #070c18 70%);
+}
+
+/* ================= 页面容器 ================= */
+.Fangtx_page {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 24px 60px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ================= 头部 ================= */
+.Fangtx_header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 26px 30px;
+  border-radius: 20px;
+  background: var(--Fangtx_panel);
+  border: 1px solid var(--Fangtx_border);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+.Fangtx_logo {
+  flex: none;
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--Fangtx_blue), var(--Fangtx_blueLight));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 1px;
+  box-shadow: 0 10px 24px rgba(23, 114, 246, 0.45);
+}
+
+.Fangtx_titleGroup {
+  flex: 1;
+  min-width: 220px;
+}
+
+.Fangtx_title {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  background: linear-gradient(90deg, #ffffff, #9ec5ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.Fangtx_subtitle {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--Fangtx_textSub);
+}
+
+.Fangtx_tag {
+  display: inline-block;
+  padding: 2px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--Fangtx_blue), var(--Fangtx_blueLight));
+}
+
+.Fangtx_userCard {
+  text-align: right;
+  padding-left: 20px;
+  border-left: 1px solid var(--Fangtx_border);
+}
+
+.Fangtx_userName {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.Fangtx_userId {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--Fangtx_textSub);
+}
+
+/* ================= 主体导航 ================= */
+.Fangtx_main {
+  flex: 1;
+  margin-top: 46px;
+}
+
+.Fangtx_sectionTitle {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 22px;
+  padding-left: 14px;
+  position: relative;
+}
+
+.Fangtx_sectionTitle::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 20px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, var(--Fangtx_blue), var(--Fangtx_blueLight));
+}
+
+.Fangtx_navGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.Fangtx_navCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 24px 22px;
+  border-radius: 16px;
+  text-decoration: none;
+  color: var(--Fangtx_text);
+  background: var(--Fangtx_panel);
+  border: 1px solid var(--Fangtx_border);
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.Fangtx_navCard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(23, 114, 246, 0.28), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.Fangtx_navCard:hover {
+  transform: translateY(-6px);
+  border-color: var(--Fangtx_blue);
+  box-shadow: 0 20px 40px rgba(23, 114, 246, 0.35);
+}
+
+.Fangtx_navCard:hover::after {
+  opacity: 1;
+}
+
+.Fangtx_cardIcon {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--Fangtx_blueLight);
+  letter-spacing: 2px;
+}
+
+.Fangtx_cardName {
+  font-size: 20px;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+}
+
+.Fangtx_cardDesc {
+  font-size: 13px;
+  color: var(--Fangtx_textSub);
+  position: relative;
+  z-index: 1;
+}
+
+/* ================= 页脚 ================= */
+.Fangtx_footer {
+  margin-top: 50px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--Fangtx_textSub);
+  letter-spacing: 1px;
+}
+
+/* ================= 响应式 ================= */
+@media (max-width: 640px) {
+  .Fangtx_header {
+    padding: 22px;
+  }
+
+  .Fangtx_userCard {
+    text-align: left;
+    border-left: none;
+    border-top: 1px solid var(--Fangtx_border);
+    padding-left: 0;
+    padding-top: 14px;
+    width: 100%;
+  }
+
+  .Fangtx_title {
+    font-size: 23px;
+  }
+}
