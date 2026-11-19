@@ -5,7 +5,7 @@
  */
 const Fangtx_pool = require('../config/Fangtx_db');
 
-const Fangtx_healthCheck = (req, res) => {
+const Fangtx_healthCheck = (Fangtx_req, Fangtx_res) => {
   const Fangtx_data = {
     service: 'Fangtx 知乎模仿项目后端',
     version: '1.0.0',
@@ -13,16 +13,16 @@ const Fangtx_healthCheck = (req, res) => {
     timestamp: new Date().toISOString()
   };
   console.log('[Fangtx] 健康检查接口被访问:', Fangtx_data);
-  res.json({ code: 0, msg: '服务运行正常', data: Fangtx_data });
+  Fangtx_res.json({ code: 0, msg: '服务运行正常', data: Fangtx_data });
 };
 
-const Fangtx_dbCheck = async (req, res) => {
+const Fangtx_dbCheck = async (Fangtx_req, Fangtx_res) => {
   try {
-    const [rows] = await Fangtx_pool.query('SELECT 1 + 1 AS result');
-    res.json({ code: 0, msg: '数据库连接正常', data: rows[0] });
-  } catch (err) {
-    console.error('[Fangtx] 数据库连接失败:', err.message);
-    res.json({ code: 5001, msg: '数据库连接失败: ' + err.message, data: null });
+    const [Fangtx_rows] = await Fangtx_pool.query('SELECT 1 + 1 AS result');
+    Fangtx_res.json({ code: 0, msg: '数据库连接正常', data: Fangtx_rows[0] });
+  } catch (Fangtx_err) {
+    console.error('[Fangtx] 数据库连接失败:', Fangtx_err.message);
+    Fangtx_res.json({ code: 5001, msg: '数据库连接失败: ' + Fangtx_err.message, data: null });
   }
 };
 

@@ -1,3 +1,5 @@
+# 姓名：方天箫 | 学号：24001010733 | 时间：2026-11-19 | 大模型：DeepSeek-V4.1-Flash
+
 # 依赖
 node_modules/
 
@@ -20,3 +22,6 @@ Thumbs.db
 # 临时文件
 *.tmp
 *.bak
+
+# 工具生成缓存
+.trae-html-share-packages/

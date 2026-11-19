@@ -2,44 +2,77 @@
 <!--
   姓名：方天箫 | 学号：24001010733 | 时间：2026-11-19 | 大模型：DeepSeek-V4.1-Flash
   文件：index.html
-  说明：知乎模仿项目首页，含 Canvas 背景动画与页面链接导航。
+  说明：知乎模仿项目首页，含 Canvas 背景动画、个人信息与已完成页面链接导航。
 -->
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="方天箫 · 知乎的模仿与制作（项目类别：模仿）· 页面导航首页" />
   <title>方天箫 · 知乎的模仿与制作</title>
   <link rel="stylesheet" href="css/Fangtx_style.css" />
 </head>
 <body>
   <!-- Canvas 背景动画 -->
-  <canvas id="Fangtx_bgCanvas" class="Fangtx_bgCanvas"></canvas>
+  <canvas id="Fangtx_bgCanvas" class="Fangtx_bgCanvas" aria-hidden="true"></canvas>
+  <div class="Fangtx_aurora Fangtx_auroraLeft" aria-hidden="true"></div>
+  <div class="Fangtx_aurora Fangtx_auroraRight" aria-hidden="true"></div>
 
   <div class="Fangtx_page">
-    <!-- 头部信息 -->
-    <header class="Fangtx_header">
-      <div class="Fangtx_logo">知乎</div>
-      <div class="Fangtx_titleGroup">
-        <h1 class="Fangtx_title">知乎的模仿与制作</h1>
-        <p class="Fangtx_subtitle">Project Category · <span class="Fangtx_tag">模仿</span></p>
+    <!-- 顶部栏 -->
+    <header class="Fangtx_topbar">
+      <div class="Fangtx_brand">
+        <span class="Fangtx_brandMark">知</span>
+        <span class="Fangtx_brandText">知乎 <em>模仿项目</em></span>
       </div>
-      <div class="Fangtx_userCard">
-        <p class="Fangtx_userName">方天箫</p>
-        <p class="Fangtx_userId">学号：24001010733</p>
+      <div class="Fangtx_status">
+        <span class="Fangtx_statusDot" id="Fangtx_statusDot"></span>
+        <span id="Fangtx_serverStatus">服务检测中…</span>
       </div>
     </header>
 
-    <!-- 页面链接导航 -->
+    <!-- 主体 -->
     <main class="Fangtx_main">
-      <h2 class="Fangtx_sectionTitle">页面导航</h2>
-      <div class="Fangtx_navGrid" id="Fangtx_navGrid">
-        <!-- 已完成页面超链接（新建页面后在此追加） -->
-        <a class="Fangtx_navCard" href="index.html">
-          <span class="Fangtx_cardIcon">01</span>
-          <span class="Fangtx_cardName">首页</span>
-          <span class="Fangtx_cardDesc">项目入口 · 页面导航</span>
-        </a>
-      </div>
+      <!-- 项目信息 -->
+      <section class="Fangtx_hero">
+        <div class="Fangtx_heroInner">
+          <span class="Fangtx_badge">项目类别 · 模仿</span>
+          <h1 class="Fangtx_heroTitle">知乎的模仿与制作</h1>
+          <p class="Fangtx_heroDesc">
+            以原生 HTML / CSS / JavaScript 还原知乎风格界面，搭配 Node.js + Express 后端服务，
+            从页面结构到交互体验完成一次完整的模仿实践。
+          </p>
+          <div class="Fangtx_owner">
+            <span class="Fangtx_avatar">方</span>
+            <span class="Fangtx_ownerInfo">
+              <strong class="Fangtx_ownerName">方天箫</strong>
+              <span class="Fangtx_ownerId">学号：24001010733</span>
+            </span>
+          </div>
+        </div>
+        <div class="Fangtx_heroMark" aria-hidden="true">知乎</div>
+      </section>
+
+      <!-- 页面链接导航 -->
+      <section class="Fangtx_navSection">
+        <div class="Fangtx_sectionHead">
+          <div>
+            <h2 class="Fangtx_sectionTitle">页面导航</h2>
+            <p class="Fangtx_sectionHint">以下为本项目已完成的 HTML 页面，点击卡片即可访问</p>
+          </div>
+          <span class="Fangtx_count" id="Fangtx_pageCount">1 个页面</span>
+        </div>
+
+        <div class="Fangtx_navGrid" id="Fangtx_navGrid">
+          <!-- 新建 HTML 页面后，在此追加一个 Fangtx_navCard 超链接（文件名含 detail 的除外） -->
+          <a class="Fangtx_navCard" href="index.html">
+            <span class="Fangtx_cardIcon">01</span>
+            <span class="Fangtx_cardTitle">首页</span>
+            <span class="Fangtx_cardDesc">项目入口 · 页面导航 · Canvas 背景动画</span>
+            <span class="Fangtx_cardArrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </section>
     </main>
 
     <footer class="Fangtx_footer">

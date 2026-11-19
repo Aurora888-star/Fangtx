@@ -3,8 +3,8 @@
  * 文件：routes/Fangtx_apiRoutes.js
  * 说明：所有 /api 接口的路由汇总。
  */
-const express = require('express');
-const Fangtx_router = express.Router();
+const Fangtx_express = require('express');
+const Fangtx_router = Fangtx_express.Router();
 const { Fangtx_healthCheck, Fangtx_dbCheck } = require('../controllers/Fangtx_healthController');
 
 Fangtx_router.get('/health', Fangtx_healthCheck);

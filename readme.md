@@ -1,3 +1,7 @@
+<!--
+  姓名：方天箫 | 学号：24001010733 | 时间：2026-11-19 | 大模型：DeepSeek-V4.1-Flash
+-->
+
 # 知乎的模仿与制作（模仿）
 
 - **姓名**：方天箫
@@ -7,50 +11,57 @@
 
 ## 项目简介
 
-本项目为「知乎」的模仿与制作，前端使用原生 HTML / CSS / JavaScript（不使用任何第三方库、框架、CDN），后端使用 Node.js + Express 提供 RESTful 接口，并为前端静态资源提供托管。
+本项目为「知乎」的模仿与制作。前端使用原生 HTML / CSS / JavaScript（不使用任何第三方库、框架、CDN），实现 Canvas 粒子背景动画与页面链接导航；后端使用 Node.js + Express 提供 RESTful 接口，并以 `express.static` 托管前端静态资源。数据库采用 MySQL，凭据存放于 `backend/.env`（已加入 `.gitignore`，不会提交到仓库）。
 
 ## 目录结构
 
 ```
 Webdesign/
-├── frontend/              前端（原生 HTML/CSS/JS）
-│   ├── index.html         首页（Canvas 背景动画 + 页面导航）
-│   ├── css/               样式
-│   ├── js/                脚本
-│   ├── fonts/             iconfont 图标文件
-│   └── images/            图片资源
-├── backend/               后端（Node.js + Express + MySQL）
-│   ├── server.js          服务入口（端口 8733）
-│   ├── app.js             Express 应用配置
-│   ├── config/            数据库配置
-│   ├── controllers/       控制器
-│   ├── routes/            路由
-│   ├── .env               数据库凭据（已被 git 忽略）
-│   ├── Fangtx_interface.md 接口记录
-│   └── Fangtx_database.md  数据库记录
-├── Fangtx_prompt.md       开发提示词记录
-└── readme.md
+├── frontend/                前端（原生 HTML/CSS/JS，无第三方依赖）
+│   ├── index.html           首页（Canvas 背景动画 + 页面导航）
+│   ├── css/Fangtx_style.css 样式
+│   ├── js/Fangtx_main.js    交互脚本
+│   ├── fonts/               iconfont 图标文件（如有）
+│   └── images/              图片资源
+├── backend/                 后端（Node.js + Express + MySQL）
+│   ├── server.js            服务入口（端口 8733）
+│   ├── app.js               Express 应用配置
+│   ├── config/              数据库配置
+│   ├── controllers/         控制器
+│   ├── routes/              路由
+│   ├── .env                 数据库凭据（已被 git 忽略）
+│   ├── Fangtx_interface.md  接口记录
+│   └── Fangtx_database.md   数据库记录
+├── Fangtx_prompt.md         开发提示词记录
+├── AGENTS.md                项目规则
+└── readme.md                项目说明
 ```
 
 ## 启动方式
 
-前端：由后端 `express.static` 托管，启动后端后访问 `http://localhost:8733`。
-
-后端：
+先创建数据库（SQL 见 `backend/Fangtx_database.md`），然后安装依赖并启动服务：
 
 ```bash
 cd backend
-cnpm i        # 依赖安装（失败可用 npm i）
-npm start     # 启动服务，端口 8733
+cnpm i        # 优先使用 cnpm；失败或超时改用 npm i
+npm start     # 固定监听端口 8733
 ```
 
-## 接口约定
+前端由后端静态托管，启动后访问：<http://localhost:8733>
 
-- 所有接口以 `/api/` 为前缀
-- 统一响应格式：`{ "code": 0, "msg": "提示信息", "data": {...} }`，`code=0` 表示成功，非 0 表示失败
+## 接口一览
+
+| 接口 | 方法 | 说明 |
+| --- | --- | --- |
+| `/api/health` | GET | 服务健康检查 |
+| `/api/db/health` | GET | MySQL 连接健康检查 |
+
+所有接口以 `/api/` 为前缀；统一响应格式为 `{ "code": 0, "msg": "提示信息", "data": {...} }`，`code=0` 表示成功，非 0 表示失败。详细参数与响应示例见 `backend/Fangtx_interface.md`。
 
 ## 页面导航
 
 | 页面 | 路径 | 说明 |
 | --- | --- | --- |
-| 首页 | frontend/index.html | 项目入口、页面导航、Canvas 背景动画 |
+| 首页 | frontend/index.html | 项目入口、个人信息、已完成页面链接、Canvas 动画 |
+
+新建 HTML 页面后，请在 `frontend/index.html` 的 `.Fangtx_navGrid` 中追加对应的 `.Fangtx_navCard` 超链接（文件名含 `detail` 的页面除外）。

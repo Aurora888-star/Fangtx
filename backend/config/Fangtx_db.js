@@ -3,10 +3,10 @@
  * 文件：config/Fangtx_db.js
  * 说明：MySQL 数据库连接池配置，凭据统一从 .env 读取。
  */
-const mysql = require('mysql2/promise');
+const Fangtx_mysql = require('mysql2/promise');
 require('dotenv').config();
 
-const Fangtx_pool = mysql.createPool({
+const Fangtx_pool = Fangtx_mysql.createPool({
   host: process.env.DB_HOST || 'localhost',
   user: process.env.DB_USER || 'root',
   password: process.env.DB_PASSWORD || '',

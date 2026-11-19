@@ -1,14 +1,13 @@
 /*
  * 姓名：方天箫 | 学号：24001010733 | 时间：2026-11-19 | 大模型：DeepSeek-V4.1-Flash
  * 文件：js/Fangtx_main.js
- * 说明：首页 Canvas 粒子背景动画，纯原生 JavaScript 实现。
+ * 说明：首页 Canvas 粒子背景动画 + 页面计数 + 后端健康检查（纯原生 JavaScript）。
  */
 (function () {
   'use strict';
 
   var Fangtx_canvas = document.getElementById('Fangtx_bgCanvas');
   var Fangtx_ctx = Fangtx_canvas.getContext('2d');
-
   var Fangtx_dpr = Math.min(window.devicePixelRatio || 1, 2);
   var Fangtx_width = 0;
   var Fangtx_height = 0;
@@ -16,10 +15,10 @@
   var Fangtx_linkDist = 130;
   var Fangtx_mouse = { x: null, y: null, radius: 150 };
 
-  // 粒子数量根据屏幕宽度自适应
+  // 粒子数量随屏幕面积自适应
   function Fangtx_particleCount() {
-    var base = Math.floor((Fangtx_width * Fangtx_height) / 14000);
-    return Math.max(40, Math.min(base, 140));
+    var Fangtx_base = Math.floor((Fangtx_width * Fangtx_height) / 14000);
+    return Math.max(40, Math.min(Fangtx_base, 140));
   }
 
   // 初始化画布尺寸
@@ -37,8 +36,8 @@
   // 生成粒子
   function Fangtx_createParticles() {
     Fangtx_particles = [];
-    var count = Fangtx_particleCount();
-    for (var i = 0; i < count; i++) {
+    var Fangtx_count = Fangtx_particleCount();
+    for (var Fangtx_index = 0; Fangtx_index < Fangtx_count; Fangtx_index++) {
       Fangtx_particles.push({
         x: Math.random() * Fangtx_width,
         y: Math.random() * Fangtx_height,
@@ -49,52 +48,51 @@
     }
   }
 
-  // 绘制一帧
+  // 绘制一帧粒子与连线
   function Fangtx_draw() {
     Fangtx_ctx.clearRect(0, 0, Fangtx_width, Fangtx_height);
 
-    for (var i = 0; i < Fangtx_particles.length; i++) {
-      var p = Fangtx_particles[i];
+    for (var Fangtx_i = 0; Fangtx_i < Fangtx_particles.length; Fangtx_i++) {
+      var Fangtx_particle = Fangtx_particles[Fangtx_i];
 
-      // 位置更新
-      p.x += p.vx;
-      p.y += p.vy;
+      Fangtx_particle.x += Fangtx_particle.vx;
+      Fangtx_particle.y += Fangtx_particle.vy;
 
       // 边界反弹
-      if (p.x < 0 || p.x > Fangtx_width) p.vx *= -1;
-      if (p.y < 0 || p.y > Fangtx_height) p.vy *= -1;
+      if (Fangtx_particle.x < 0 || Fangtx_particle.x > Fangtx_width) Fangtx_particle.vx *= -1;
+      if (Fangtx_particle.y < 0 || Fangtx_particle.y > Fangtx_height) Fangtx_particle.vy *= -1;
 
-      // 鼠标排斥效果
+      // 鼠标排斥交互
       if (Fangtx_mouse.x !== null) {
-        var mdx = p.x - Fangtx_mouse.x;
-        var mdy = p.y - Fangtx_mouse.y;
-        var mdist = Math.sqrt(mdx * mdx + mdy * mdy);
-        if (mdist < Fangtx_mouse.radius && mdist > 0) {
-          var force = (Fangtx_mouse.radius - mdist) / Fangtx_mouse.radius;
-          p.x += (mdx / mdist) * force * 2.2;
-          p.y += (mdy / mdist) * force * 2.2;
+        var Fangtx_mouseDx = Fangtx_particle.x - Fangtx_mouse.x;
+        var Fangtx_mouseDy = Fangtx_particle.y - Fangtx_mouse.y;
+        var Fangtx_mouseDist = Math.sqrt(Fangtx_mouseDx * Fangtx_mouseDx + Fangtx_mouseDy * Fangtx_mouseDy);
+        if (Fangtx_mouseDist < Fangtx_mouse.radius && Fangtx_mouseDist > 0) {
+          var Fangtx_force = (Fangtx_mouse.radius - Fangtx_mouseDist) / Fangtx_mouse.radius;
+          Fangtx_particle.x += (Fangtx_mouseDx / Fangtx_mouseDist) * Fangtx_force * 2.2;
+          Fangtx_particle.y += (Fangtx_mouseDy / Fangtx_mouseDist) * Fangtx_force * 2.2;
         }
       }
 
       // 绘制粒子
       Fangtx_ctx.beginPath();
-      Fangtx_ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      Fangtx_ctx.fillStyle = 'rgba(120, 180, 255, 0.85)';
+      Fangtx_ctx.arc(Fangtx_particle.x, Fangtx_particle.y, Fangtx_particle.r, 0, Math.PI * 2);
+      Fangtx_ctx.fillStyle = 'rgba(140, 190, 255, 0.85)';
       Fangtx_ctx.fill();
 
-      // 粒子间连线
-      for (var j = i + 1; j < Fangtx_particles.length; j++) {
-        var q = Fangtx_particles[j];
-        var dx = p.x - q.x;
-        var dy = p.y - q.y;
-        var dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < Fangtx_linkDist) {
-          var alpha = (1 - dist / Fangtx_linkDist) * 0.5;
+      // 近距离粒子连线
+      for (var Fangtx_j = Fangtx_i + 1; Fangtx_j < Fangtx_particles.length; Fangtx_j++) {
+        var Fangtx_other = Fangtx_particles[Fangtx_j];
+        var Fangtx_dx = Fangtx_particle.x - Fangtx_other.x;
+        var Fangtx_dy = Fangtx_particle.y - Fangtx_other.y;
+        var Fangtx_dist = Math.sqrt(Fangtx_dx * Fangtx_dx + Fangtx_dy * Fangtx_dy);
+        if (Fangtx_dist < Fangtx_linkDist) {
+          var Fangtx_alpha = (1 - Fangtx_dist / Fangtx_linkDist) * 0.45;
           Fangtx_ctx.beginPath();
-          Fangtx_ctx.strokeStyle = 'rgba(23, 114, 246, ' + alpha + ')';
+          Fangtx_ctx.strokeStyle = 'rgba(106, 168, 255, ' + Fangtx_alpha + ')';
           Fangtx_ctx.lineWidth = 1;
-          Fangtx_ctx.moveTo(p.x, p.y);
-          Fangtx_ctx.lineTo(q.x, q.y);
+          Fangtx_ctx.moveTo(Fangtx_particle.x, Fangtx_particle.y);
+          Fangtx_ctx.lineTo(Fangtx_other.x, Fangtx_other.y);
           Fangtx_ctx.stroke();
         }
       }
@@ -103,10 +101,45 @@
     requestAnimationFrame(Fangtx_draw);
   }
 
-  // 鼠标事件
-  window.addEventListener('mousemove', function (e) {
-    Fangtx_mouse.x = e.clientX;
-    Fangtx_mouse.y = e.clientY;
+  // 统计已完成页面数量（文件名含 detail 的页面不计入导航）
+  function Fangtx_countPages() {
+    var Fangtx_links = document.querySelectorAll('#Fangtx_navGrid .Fangtx_navCard');
+    var Fangtx_label = document.getElementById('Fangtx_pageCount');
+    if (Fangtx_label) {
+      Fangtx_label.textContent = Fangtx_links.length + ' 个页面';
+    }
+    console.log('[Fangtx] 已完成页面数量:', Fangtx_links.length);
+  }
+
+  // 健康检查：服务器返回数据与错误均输出到浏览器控制台
+  function Fangtx_checkServer() {
+    var Fangtx_text = document.getElementById('Fangtx_serverStatus');
+    var Fangtx_dot = document.getElementById('Fangtx_statusDot');
+
+    if (typeof fetch !== 'function') {
+      console.error('[Fangtx] 当前浏览器不支持 fetch，跳过健康检查');
+      return;
+    }
+
+    fetch('/api/health')
+      .then(function (Fangtx_response) {
+        return Fangtx_response.json();
+      })
+      .then(function (Fangtx_result) {
+        console.log('[Fangtx] 服务器返回数据:', Fangtx_result);
+        if (Fangtx_text) Fangtx_text.textContent = Fangtx_result.code === 0 ? '服务在线' : '服务异常';
+        if (Fangtx_dot) Fangtx_dot.className = 'Fangtx_statusDot ' + (Fangtx_result.code === 0 ? 'Fangtx_isOnline' : 'Fangtx_isOffline');
+      })
+      .catch(function (Fangtx_error) {
+        console.error('[Fangtx] 服务器请求失败:', Fangtx_error);
+        if (Fangtx_text) Fangtx_text.textContent = '服务离线';
+        if (Fangtx_dot) Fangtx_dot.className = 'Fangtx_statusDot Fangtx_isOffline';
+      });
+  }
+
+  window.addEventListener('mousemove', function (Fangtx_event) {
+    Fangtx_mouse.x = Fangtx_event.clientX;
+    Fangtx_mouse.y = Fangtx_event.clientY;
   });
 
   window.addEventListener('mouseout', function () {
@@ -118,5 +151,7 @@
 
   Fangtx_resize();
   Fangtx_draw();
+  Fangtx_countPages();
+  Fangtx_checkServer();
   console.log('[Fangtx] 首页 Canvas 背景动画已启动');
 })();
