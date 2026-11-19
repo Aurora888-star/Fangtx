@@ -7,9 +7,11 @@ const Fangtx_express = require('express');
 const Fangtx_router = Fangtx_express.Router();
 const { Fangtx_healthCheck, Fangtx_dbCheck } = require('../controllers/Fangtx_healthController');
 const { Fangtx_dbConnect } = require('../controllers/Fangtx_dbConnectController');
+const { Fangtx_getNewsList } = require('../controllers/Fangtx_newsController');
 
 Fangtx_router.get('/health', Fangtx_healthCheck);
 Fangtx_router.get('/db/health', Fangtx_dbCheck);
 Fangtx_router.post('/db/connect', Fangtx_dbConnect);
+Fangtx_router.get('/news', Fangtx_getNewsList);
 
 module.exports = Fangtx_router;

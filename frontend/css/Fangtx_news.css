@@ -1,0 +1,485 @@
+/*
+ * 姓名：方天箫 | 学号：24001010733 | 时间：2026-11-19 | 大模型：DeepSeek-V4.1-Flash
+ * 文件：css/Fangtx_news.css
+ * 说明：科技新闻列表页样式（原生 CSS，无第三方依赖）。
+ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --Fangtx_blue: #1772f6;
+  --Fangtx_blueDeep: #0b57d0;
+  --Fangtx_blueLight: #6aa8ff;
+  --Fangtx_bg: #08101f;
+  --Fangtx_panel: rgba(255, 255, 255, 0.055);
+  --Fangtx_border: rgba(255, 255, 255, 0.12);
+  --Fangtx_text: #eef4ff;
+  --Fangtx_textSub: #9db1cf;
+  --Fangtx_ok: #35c07a;
+  --Fangtx_err: #ff6b6b;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+  background: var(--Fangtx_bg);
+  color: var(--Fangtx_text);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ================= Canvas 背景动画 ================= */
+.Fangtx_bgCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  display: block;
+  background: radial-gradient(circle at 50% 12%, #12284f 0%, #08101f 72%);
+}
+
+.Fangtx_aurora {
+  position: fixed;
+  z-index: 0;
+  width: 44vw;
+  height: 44vw;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.26;
+  pointer-events: none;
+}
+
+.Fangtx_auroraLeft {
+  top: -16vw;
+  left: -12vw;
+  background: #1772f6;
+}
+
+.Fangtx_auroraRight {
+  right: -14vw;
+  bottom: -20vw;
+  background: #2546c8;
+}
+
+/* ================= 页面容器 ================= */
+.Fangtx_page {
+  position: relative;
+  z-index: 1;
+  width: min(1080px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 32px 0 56px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ================= 顶部栏 ================= */
+.Fangtx_topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--Fangtx_border);
+}
+
+.Fangtx_brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.Fangtx_brandMark {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(135deg, var(--Fangtx_blue), var(--Fangtx_blueLight));
+  box-shadow: 0 8px 22px rgba(23, 114, 246, 0.4);
+}
+
+.Fangtx_brandText {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.Fangtx_brandText em {
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--Fangtx_textSub);
+  margin-left: 6px;
+  letter-spacing: 1px;
+}
+
+.Fangtx_backLink {
+  font-size: 13px;
+  text-decoration: none;
+  color: var(--Fangtx_textSub);
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--Fangtx_border);
+  background: var(--Fangtx_panel);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.Fangtx_backLink:hover {
+  color: #fff;
+  border-color: var(--Fangtx_blueLight);
+}
+
+/* ================= 主体 ================= */
+.Fangtx_main {
+  flex: 1;
+  padding-top: 36px;
+}
+
+.Fangtx_pageHead {
+  margin-bottom: 26px;
+}
+
+.Fangtx_pageTitle {
+  font-size: clamp(28px, 4.5vw, 40px);
+  font-weight: 800;
+  background: linear-gradient(92deg, #ffffff 15%, #a7caff 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.Fangtx_pageSubtitle {
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--Fangtx_textSub);
+}
+
+/* ================= 接口链接区 ================= */
+.Fangtx_apiBar {
+  padding: 20px 24px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(23, 114, 246, 0.14), rgba(255, 255, 255, 0.04));
+  border: 1px solid var(--Fangtx_border);
+  backdrop-filter: blur(10px);
+}
+
+.Fangtx_apiHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.Fangtx_apiBadge {
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #cfe0ff;
+  background: rgba(23, 114, 246, 0.22);
+  border: 1px solid rgba(106, 168, 255, 0.35);
+}
+
+.Fangtx_apiMethod {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #bff5d8;
+  background: rgba(53, 192, 122, 0.16);
+  border: 1px solid rgba(53, 192, 122, 0.35);
+}
+
+.Fangtx_apiLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 14px 18px;
+  border-radius: 12px;
+  text-decoration: none;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(106, 168, 255, 0.28);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.Fangtx_apiLink:hover {
+  border-color: var(--Fangtx_blueLight);
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.Fangtx_apiPath {
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: #a7caff;
+  word-break: break-all;
+}
+
+.Fangtx_apiGo {
+  font-size: 12px;
+  color: var(--Fangtx_textSub);
+  flex: none;
+}
+
+.Fangtx_apiTip {
+  margin-top: 12px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--Fangtx_textSub);
+}
+
+/* ================= 状态提示 ================= */
+.Fangtx_result {
+  margin-top: 20px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.6;
+  border: 1px solid transparent;
+}
+
+.Fangtx_resultHidden {
+  display: none;
+}
+
+.Fangtx_resultIsOk {
+  color: #bff5d8;
+  background: rgba(53, 192, 122, 0.12);
+  border-color: rgba(53, 192, 122, 0.4);
+}
+
+.Fangtx_resultIsError {
+  color: #ffd2d2;
+  background: rgba(255, 107, 107, 0.12);
+  border-color: rgba(255, 107, 107, 0.4);
+}
+
+/* ================= 数据概览 ================= */
+.Fangtx_overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  margin-top: 22px;
+}
+
+.Fangtx_overviewItem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px 22px;
+  border-radius: 14px;
+  background: var(--Fangtx_panel);
+  border: 1px solid var(--Fangtx_border);
+  backdrop-filter: blur(8px);
+}
+
+.Fangtx_overviewNum {
+  font-size: 26px;
+  font-weight: 800;
+  color: #a7caff;
+}
+
+.Fangtx_overviewLabel {
+  font-size: 12px;
+  color: var(--Fangtx_textSub);
+}
+
+/* ================= 新闻列表 ================= */
+.Fangtx_newsSection {
+  margin-top: 40px;
+}
+
+.Fangtx_sectionTitle {
+  font-size: 21px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-left: 14px;
+  position: relative;
+}
+
+.Fangtx_sectionTitle::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 21px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, var(--Fangtx_blue), var(--Fangtx_blueLight));
+}
+
+.Fangtx_newsList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 18px;
+}
+
+.Fangtx_newsCard {
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
+  border-radius: 16px;
+  text-decoration: none;
+  color: var(--Fangtx_text);
+  background: var(--Fangtx_panel);
+  border: 1px solid var(--Fangtx_border);
+  backdrop-filter: blur(8px);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.Fangtx_newsCard:hover {
+  transform: translateY(-5px);
+  border-color: var(--Fangtx_blueLight);
+  box-shadow: 0 18px 36px rgba(23, 114, 246, 0.28);
+}
+
+.Fangtx_newsCardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.Fangtx_newsCategory {
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #cfe0ff;
+  background: rgba(23, 114, 246, 0.2);
+  border: 1px solid rgba(106, 168, 255, 0.3);
+}
+
+.Fangtx_newsId {
+  font-size: 12px;
+  color: #7186a6;
+  font-family: Consolas, "Courier New", monospace;
+}
+
+.Fangtx_newsTitle {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.Fangtx_newsSummary {
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--Fangtx_textSub);
+  flex: 1;
+}
+
+.Fangtx_newsMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--Fangtx_border);
+  font-size: 12px;
+  color: var(--Fangtx_textSub);
+}
+
+.Fangtx_newsViews {
+  color: var(--Fangtx_blueLight);
+}
+
+/* ================= 原始数据区 ================= */
+.Fangtx_rawSection {
+  margin-top: 36px;
+}
+
+.Fangtx_rawToggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--Fangtx_text);
+  background: var(--Fangtx_panel);
+  border: 1px solid var(--Fangtx_border);
+  transition: border-color 0.2s ease;
+}
+
+.Fangtx_rawToggle:hover {
+  border-color: var(--Fangtx_blueLight);
+}
+
+.Fangtx_rawArrow {
+  color: var(--Fangtx_blueLight);
+  transition: transform 0.2s ease;
+}
+
+.Fangtx_rawToggle[aria-expanded="true"] .Fangtx_rawArrow {
+  transform: rotate(180deg);
+}
+
+.Fangtx_rawBox {
+  margin-top: 12px;
+  padding: 20px;
+  max-height: 420px;
+  overflow: auto;
+  border-radius: 12px;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #bfe0ff;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--Fangtx_border);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* ================= 页脚 ================= */
+.Fangtx_footer {
+  margin-top: 44px;
+  padding-top: 22px;
+  border-top: 1px solid var(--Fangtx_border);
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--Fangtx_textSub);
+}
+
+/* ================= 响应式 ================= */
+@media (max-width: 640px) {
+  .Fangtx_page {
+    width: calc(100% - 28px);
+  }
+
+  .Fangtx_newsList {
+    grid-template-columns: 1fr;
+  }
+
+  .Fangtx_apiGo {
+    font-size: 11px;
+  }
+}

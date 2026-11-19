@@ -126,3 +126,53 @@ Content-Type: application/json
 - **修改时间**：2026-11-19 22:10:00
 
 ---
+
+## 接口：科技新闻列表
+
+- **接口路径**：`/api/news`
+- **HTTP 方法**：GET
+- **请求参数**：无
+
+请求示例：
+
+```
+GET http://localhost:8733/api/news
+```
+
+- **响应格式（成功）**：
+
+```json
+{
+  "code": 0,
+  "msg": "新闻列表获取成功",
+  "data": {
+    "total": 10,
+    "list": [
+      {
+        "Fangtx_id": 1,
+        "Fangtx_title": "OpenAI 发布 GPT-5 模型，多模态推理能力显著提升",
+        "Fangtx_source": "科技日报",
+        "Fangtx_category": "人工智能",
+        "Fangtx_summary": "OpenAI 正式推出新一代大模型 GPT-5...",
+        "Fangtx_publish_time": "2026-11-18T09:30:00.000Z",
+        "Fangtx_link": "https://example.com/news/gpt5-release",
+        "Fangtx_views": 15820
+      }
+    ]
+  }
+}
+```
+
+- **响应格式（失败）**：
+
+```json
+{
+  "code": 5003,
+  "msg": "新闻列表查询失败: ...",
+  "data": null
+}
+```
+
+- **修改时间**：2026-11-19 22:12:00
+
+---
