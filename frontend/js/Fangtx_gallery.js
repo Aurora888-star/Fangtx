@@ -7,7 +7,7 @@
 (function () {
   'use strict';
 
-  var Fangtx_apiPath = '/api/gallery';
+  var Fangtx_apiPath = window.Fangtx_apiUrl ? window.Fangtx_apiUrl('/api/gallery') : '/api/gallery';
   var Fangtx_apiLink = document.getElementById('Fangtx_apiLink');
   var Fangtx_result = document.getElementById('Fangtx_result');
   var Fangtx_galleryGrid = document.getElementById('Fangtx_galleryGrid');

@@ -7,7 +7,11 @@
 (function () {
   'use strict';
 
-  var Fangtx_apiPath = '/api/chat';
+  // 通过 http 访问时使用 /api/chat；双击以 file:// 打开时自动指向本地后端
+  var Fangtx_apiPath = window.Fangtx_apiUrl ? window.Fangtx_apiUrl('/api/chat') : '/api/chat';
+  var Fangtx_apiPathEl = document.getElementById('Fangtx_apiPath');
+  if (Fangtx_apiPathEl) Fangtx_apiPathEl.textContent = Fangtx_apiPath;
+
   var Fangtx_messagesEl = document.getElementById('Fangtx_messages');
   var Fangtx_emptyEl = document.getElementById('Fangtx_empty');
   var Fangtx_form = document.getElementById('Fangtx_form');
@@ -170,7 +174,7 @@
         if (Fangtx_thinking && Fangtx_thinking.parentNode) {
           Fangtx_thinking.parentNode.removeChild(Fangtx_thinking);
         }
-        Fangtx_appendMessage('assistant', '抱歉，网络请求失败：' + Fangtx_error.message, true);
+        Fangtx_appendMessage('assistant', '抱歉，网络请求失败：' + Fangtx_error.message + '。请确认后端已启动（node server.js），或改用 http://localhost:8733/chat.html 访问。', true);
         Fangtx_status.textContent = '在线 · 网络异常';
       })
       .finally(function () {

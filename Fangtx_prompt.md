@@ -132,3 +132,42 @@ curl --request POST \
 ```
 
 ---
+
+## 2026-11-23 14:33
+
+**大模型**：Tencent Hunyuan Hy
+
+**提示词全文**：
+
+```
+@image#1:Clipboard_Screenshot.png 这个不能聊天
+（附图：浏览器以 file:///D:/Webdesign/frontend/chat.html 打开 AI 聊天页，发送消息后提示“抱歉，网络请求失败：Failed to fetch”）
+```
+
+---
+
+## 2026-11-23 14:56
+
+**大模型**：Tencent Hunyuan Hy
+
+**提示词全文**：
+
+```
+Harness Engineering：如商业评论情感分类、实体抽取等，将自然语言转化为结构化 JSON 数据，先设计返回的JSON数据。
+基于LLM API调用的自选题目（如ocr、图像识别、录音和语音识别）。
+```
+
+---
+
+## 2026-11-23 17:30
+
+**大模型**：Tencent Hunyuan Hy
+
+**提示词全文**：
+
+```
+我之前已经完成以下步骤：创建技能 skill：提交到 GitHub，将本项目提交 commit 并 push到https://github.com/Aurora888-star/Fangtx.git使用已设置公钥。
+但是现在我的代码更新了，请帮我更新的代码更新发到这个github上面
+```
+
+---

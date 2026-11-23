@@ -40,7 +40,7 @@
 
   // ============ 知识库文件列表 ============
   function Fangtx_loadFiles() {
-    fetch('/api/knowledge/files')
+    fetch(Fangtx_apiUrl('/api/knowledge/files'))
       .then(function (Fangtx_r) { return Fangtx_r.json(); })
       .then(function (Fangtx_data) {
         console.log('[Fangtx] 知识库文件列表:', Fangtx_data);
@@ -94,7 +94,7 @@
       Fangtx_del.title = '删除该文件';
       Fangtx_del.addEventListener('click', function () {
         if (!window.confirm('确定删除知识库文件「' + Fangtx_file.Fangtx_filename + '」吗？')) return;
-        fetch('/api/knowledge/file/' + Fangtx_file.Fangtx_id, { method: 'DELETE' })
+        fetch(Fangtx_apiUrl('/api/knowledge/file/' + Fangtx_file.Fangtx_id), { method: 'DELETE' })
           .then(function (Fangtx_r) { return Fangtx_r.json(); })
           .then(function (Fangtx_data) {
             console.log('[Fangtx] 删除文件响应:', Fangtx_data);
@@ -143,7 +143,7 @@
     Fangtx_showUploadStatus(true, '正在上传并解析「' + Fangtx_file.name + '」…');
     console.log('[Fangtx] 上传文件:', Fangtx_file.name, '大小:', Fangtx_file.size);
 
-    fetch('/api/knowledge/upload', { method: 'POST', body: Fangtx_formData })
+    fetch(Fangtx_apiUrl('/api/knowledge/upload'), { method: 'POST', body: Fangtx_formData })
       .then(function (Fangtx_r) { return Fangtx_r.json(); })
       .then(function (Fangtx_data) {
         console.log('[Fangtx] 上传响应:', Fangtx_data);
@@ -248,7 +248,7 @@
 
     var Fangtx_thinking = Fangtx_appendThinking();
 
-    fetch('/api/knowledge/ask', {
+    fetch(Fangtx_apiUrl('/api/knowledge/ask'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ question: Fangtx_question })

@@ -423,3 +423,76 @@ DELETE http://localhost:8733/api/knowledge/file/9
 - **修改时间**：2026-11-23 14:22:56
 
 ---
+
+## Harness Engineering 结构化抽取 —— 返回 JSON 数据设计（先设计，后实现）
+
+设计目标：把自然语言（商业评论）或图片 OCR 识别出的文字，通过受约束的 Prompt + JSON 模式输出，转换为稳定可解析的结构化数据。统一响应包仍为 `{ code, msg, data }`，`data` 结构如下。
+
+### data 字段设计
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `task` | string | `text_extract` 文本抽取 / `image_ocr` 图片识别抽取 |
+| `source` | string | 原始评论文本，或图片文件名 |
+| `schemaVersion` | string | 固定 `Fangtx_harness_v1`，便于后续兼容 |
+| `result` | object | 结构化抽取核心结果 |
+| `result.overall` | object | 整体情感：`sentiment`（positive/negative/neutral/mixed）、`score`（0~1）、`confidence`（0~1）、`summary` |
+| `result.aspects` | array | 方面情感：`target`、`category`、`sentiment`、`score`、`evidence`（必须引用原文片段） |
+| `result.entities` | array | 实体抽取：`name`、`type`（人物/品牌/产品/地点/其他）、`sentiment`、`mentions` |
+| `result.keywords` | array | 关键词数组，最多 8 个 |
+| `result.intent` | string | `praise`/`complaint`/`suggestion`/`question`/`other` |
+| `result.suggestions` | array | 针对评论的可执行建议，最多 3 条 |
+| `ocr` | object\|null | 图片模式专有：`text`（OCR 全文）、`language`、`image`（fileName/mimeType/size）；文本模式为 `null` |
+| `meta` | object | `model`、`promptVersion`、`createdAt`、`usage`、`rawResponse`（大模型原始响应） |
+
+### 成功响应示例（文本模式）
+
+```json
+{
+  "code": 0,
+  "msg": "结构化抽取成功",
+  "data": {
+    "task": "text_extract",
+    "source": "手机轻薄手感很好，电池续航一整天，就是拍照夜景噪点太多，客服回复很慢。",
+    "schemaVersion": "Fangtx_harness_v1",
+    "result": {
+      "overall": {
+        "sentiment": "mixed",
+        "score": 0.55,
+        "confidence": 0.9,
+        "summary": "用户对轻薄与续航满意，但夜景拍照和客服响应存在明显不满。"
+      },
+      "aspects": [
+        { "target": "外观手感", "category": "设计", "sentiment": "positive", "score": 0.92, "evidence": "轻薄手感很好" },
+        { "target": "电池续航", "category": "性能", "sentiment": "positive", "score": 0.88, "evidence": "电池续航一整天" },
+        { "target": "夜景拍照", "category": "影像", "sentiment": "negative", "score": 0.2, "evidence": "拍照夜景噪点太多" },
+        { "target": "客服响应", "category": "服务", "sentiment": "negative", "score": 0.25, "evidence": "客服回复很慢" }
+      ],
+      "entities": [
+        { "name": "客服", "type": "其他", "sentiment": "negative", "mentions": 1 }
+      ],
+      "keywords": ["轻薄", "续航", "夜景噪点", "客服回复慢"],
+      "intent": "complaint",
+      "suggestions": ["优化夜景降噪算法", "缩短客服首响时间"]
+    },
+    "ocr": null,
+    "meta": {
+      "model": "deepseek-ai/DeepSeek-V4-Flash",
+      "promptVersion": "Fangtx_harness_v1",
+      "createdAt": "2026-11-23T14:56:00.000Z",
+      "usage": {},
+      "rawResponse": {}
+    }
+  }
+}
+```
+
+### 失败响应示例
+
+```json
+{ "code": 4001, "msg": "请输入评论文本", "data": null }
+```
+
+- **修改时间**：2026-11-23 14:56
+
+---

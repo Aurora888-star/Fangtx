@@ -142,7 +142,7 @@
     Fangtx_result.className = 'Fangtx_result Fangtx_resultHidden';
     Fangtx_infoBox.className = 'Fangtx_infoBox Fangtx_infoHidden';
 
-    fetch('/api/db/connect', {
+    fetch(Fangtx_apiUrl('/api/db/connect'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username: Fangtx_name, password: Fangtx_pass })

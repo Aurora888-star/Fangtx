@@ -10,6 +10,7 @@ const { Fangtx_dbConnect } = require('../controllers/Fangtx_dbConnectController'
 const { Fangtx_getNewsList } = require('../controllers/Fangtx_newsController');
 const { Fangtx_getGalleryList } = require('../controllers/Fangtx_galleryController');
 const { Fangtx_chat } = require('../controllers/Fangtx_chatController');
+const { Fangtx_extract, Fangtx_ocr } = require('../controllers/Fangtx_harnessController');
 const Fangtx_knowledgeController = require('../controllers/Fangtx_knowledgeController');
 
 Fangtx_router.get('/health', Fangtx_healthCheck);
@@ -18,6 +19,8 @@ Fangtx_router.post('/db/connect', Fangtx_dbConnect);
 Fangtx_router.get('/news', Fangtx_getNewsList);
 Fangtx_router.get('/gallery', Fangtx_getGalleryList);
 Fangtx_router.post('/chat', Fangtx_chat);
+Fangtx_router.post('/harness/extract', Fangtx_extract);
+Fangtx_router.post('/harness/ocr', Fangtx_ocr);
 Fangtx_router.get('/knowledge/files', Fangtx_knowledgeController.Fangtx_listFiles);
 Fangtx_router.post('/knowledge/upload', Fangtx_knowledgeController.Fangtx_uploadFile);
 Fangtx_router.delete('/knowledge/file/:id', Fangtx_knowledgeController.Fangtx_deleteFile);

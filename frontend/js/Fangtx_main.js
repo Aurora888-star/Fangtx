@@ -121,7 +121,7 @@
       return;
     }
 
-    fetch('/api/health')
+    fetch(Fangtx_apiUrl('/api/health'))
       .then(function (Fangtx_response) {
         return Fangtx_response.json();
       })
