@@ -95,3 +95,28 @@
 ```
 
 ---
+
+## 2026-11-23 14:00:54
+
+**大模型**：DeepSeek-V4.1-Flash
+
+**提示词全文**：
+
+```
+创建AI聊天页面。
+Api-key：sk-bnwe***（已脱敏，完整密钥见 backend/.env）
+curl --request POST \
+--url https://api.siliconflow.cn/v1/chat/completions \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer YOUR_API_KEY" \
+-d '{
+"model": "deepseek-ai/DeepSeek-V4-Flash",
+"messages": [
+{"role": "system", "content": "你是一个有用的助手"},
+{"role": "user", "content": "你好，请介绍一下你自己"}
+]
+}'
+在控制台里输出发送给大模型的数据和从大模型接收到的数据。
+```
+
+---

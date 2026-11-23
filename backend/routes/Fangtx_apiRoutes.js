@@ -9,11 +9,13 @@ const { Fangtx_healthCheck, Fangtx_dbCheck } = require('../controllers/Fangtx_he
 const { Fangtx_dbConnect } = require('../controllers/Fangtx_dbConnectController');
 const { Fangtx_getNewsList } = require('../controllers/Fangtx_newsController');
 const { Fangtx_getGalleryList } = require('../controllers/Fangtx_galleryController');
+const { Fangtx_chat } = require('../controllers/Fangtx_chatController');
 
 Fangtx_router.get('/health', Fangtx_healthCheck);
 Fangtx_router.get('/db/health', Fangtx_dbCheck);
 Fangtx_router.post('/db/connect', Fangtx_dbConnect);
 Fangtx_router.get('/news', Fangtx_getNewsList);
 Fangtx_router.get('/gallery', Fangtx_getGalleryList);
+Fangtx_router.post('/chat', Fangtx_chat);
 
 module.exports = Fangtx_router;

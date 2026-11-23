@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!--
+  姓名：方天箫 | 学号：24001010733 | 时间：2026-11-23 | 大模型：DeepSeek-V4.1-Flash
+  文件：chat.html
+  说明：AI 聊天页面，通过后端 /api/chat 接口与硅基流动大模型对话，展示接口链接与请求/响应数据。
+-->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="方天箫 · 知乎的模仿与制作 · AI 聊天" />
+  <title>AI 聊天 · 知乎的模仿与制作</title>
+  <link rel="stylesheet" href="css/Fangtx_chat.css" />
+</head>
+<body>
+  <!-- Canvas 背景动画 -->
+  <canvas id="Fangtx_bgCanvas" class="Fangtx_bgCanvas" aria-hidden="true"></canvas>
+  <div class="Fangtx_aurora Fangtx_auroraLeft" aria-hidden="true"></div>
+  <div class="Fangtx_aurora Fangtx_auroraRight" aria-hidden="true"></div>
+
+  <div class="Fangtx_page">
+    <!-- 顶部栏 -->
+    <header class="Fangtx_topbar">
+      <div class="Fangtx_brand">
+        <span class="Fangtx_brandMark">知</span>
+        <span class="Fangtx_brandText">知乎 <em>模仿项目</em></span>
+      </div>
+      <a class="Fangtx_backLink" href="index.html">← 返回首页</a>
+    </header>
+
+    <!-- 主体 -->
+    <main class="Fangtx_main">
+      <div class="Fangtx_pageHead">
+        <h1 class="Fangtx_pageTitle">AI 聊天</h1>
+        <p class="Fangtx_pageSubtitle">由硅基流动 DeepSeek 大模型驱动 · 请求经后端 /api/chat 转发</p>
+      </div>
+
+      <!-- 后端接口链接展示区 -->
+      <section class="Fangtx_apiBar">
+        <div class="Fangtx_apiHead">
+          <span class="Fangtx_apiBadge">后端接口</span>
+          <span class="Fangtx_apiMethod">POST</span>
+          <span class="Fangtx_apiModel" id="Fangtx_apiModel">deepseek-ai/DeepSeek-V4-Flash</span>
+        </div>
+        <div class="Fangtx_apiPath" id="Fangtx_apiPath">/api/chat</div>
+        <p class="Fangtx_apiTip">前端将对话内容发送给本地后端接口，由后端携带 API Key 调用大模型；密钥不会下发到浏览器。发送的数据与接收的数据会同时打印在浏览器控制台与服务端控制台。</p>
+      </section>
+
+      <!-- 聊天窗口 -->
+      <section class="Fangtx_chatShell">
+        <div class="Fangtx_chatHead">
+          <span class="Fangtx_chatAvatar" aria-hidden="true">AI</span>
+          <span class="Fangtx_chatHeadInfo">
+            <strong>DeepSeek 助手</strong>
+            <small id="Fangtx_chatStatus">在线 · 等待你的消息</small>
+          </span>
+          <button class="Fangtx_clearBtn" type="button" id="Fangtx_clearBtn">清空对话</button>
+        </div>
+
+        <div class="Fangtx_messages" id="Fangtx_messages" role="log" aria-live="polite">
+          <div class="Fangtx_empty" id="Fangtx_empty">
+            <div class="Fangtx_emptyIcon" aria-hidden="true">✦</div>
+            <p>开始一段对话吧</p>
+            <span>试试问：「你好，请介绍一下你自己」</span>
+          </div>
+        </div>
+
+        <form class="Fangtx_inputBar" id="Fangtx_form">
+          <textarea class="Fangtx_input" id="Fangtx_input" rows="1" placeholder="输入消息，Enter 发送，Shift + Enter 换行" aria-label="输入消息"></textarea>
+          <button class="Fangtx_sendBtn" type="submit" id="Fangtx_sendBtn">
+            <span class="Fangtx_sendText">发送</span>
+            <span class="Fangtx_sendIcon" aria-hidden="true">➤</span>
+          </button>
+        </form>
+      </section>
+
+      <!-- 原始请求/响应数据展示 -->
+      <section class="Fangtx_rawSection">
+        <button class="Fangtx_rawToggle" type="button" id="Fangtx_rawToggle" aria-expanded="false">
+          <span>查看发送给大模型的数据 / 从大模型接收到的数据</span>
+          <span class="Fangtx_rawArrow" aria-hidden="true">▾</span>
+        </button>
+        <pre class="Fangtx_rawBox" id="Fangtx_rawBox" hidden></pre>
+      </section>
+    </main>
+
+    <footer class="Fangtx_footer">
+      <p>方天箫 · 24001010733 · 知乎的模仿与制作（模仿）</p>
+    </footer>
+  </div>
+
+  <script src="js/Fangtx_chat.js"></script>
+</body>
+</html>

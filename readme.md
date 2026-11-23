@@ -29,7 +29,7 @@ Webdesign/
 │   ├── config/              数据库配置
 │   ├── controllers/         控制器
 │   ├── routes/              路由
-│   ├── .env                 数据库凭据（已被 git 忽略）
+│   ├── .env                 数据库凭据与 API Key（已被 git 忽略）
 │   ├── Fangtx_interface.md  接口记录
 │   └── Fangtx_database.md   数据库记录
 ├── Fangtx_prompt.md         开发提示词记录
@@ -49,6 +49,14 @@ npm start     # 固定监听端口 8733
 
 前端由后端静态托管，启动后访问：<http://localhost:8733>
 
+AI 聊天功能需在 `backend/.env` 中配置硅基流动密钥（该文件已被 git 忽略）：
+
+```env
+SILICONFLOW_API_KEY=你的密钥
+SILICONFLOW_API_URL=https://api.siliconflow.cn/v1/chat/completions
+SILICONFLOW_MODEL=deepseek-ai/DeepSeek-V4-Flash
+```
+
 ## 接口一览
 
 | 接口 | 方法 | 说明 |
@@ -58,6 +66,7 @@ npm start     # 固定监听端口 8733
 | `/api/db/connect` | POST | 按输入的用户名/密码测试 MySQL 连接 |
 | `/api/news` | GET | 获取科技新闻列表（来自 Fangtx_tech_news 表） |
 | `/api/gallery` | GET | 获取图文列表（来自 Fangtx_gallery 表） |
+| `/api/chat` | POST | AI 聊天：转发消息至硅基流动 DeepSeek 大模型 |
 
 所有接口以 `/api/` 为前缀；统一响应格式为 `{ "code": 0, "msg": "提示信息", "data": {...} }`，`code=0` 表示成功，非 0 表示失败。详细参数与响应示例见 `backend/Fangtx_interface.md`。
 
@@ -69,5 +78,6 @@ npm start     # 固定监听端口 8733
 | 数据库连接 | frontend/database.html | MySQL 连接测试：输入用户名/密码，成功/错误提示 |
 | 科技新闻 | frontend/news.html | 新闻列表：展示后端接口链接与数据库中的数据内容 |
 | 图文精选 | frontend/gallery.html | 图文列表：本地 SVG 封面 + 分类筛选 + 接口数据展示 |
+| AI 聊天 | frontend/chat.html | DeepSeek 多轮对话：收发数据在浏览器/服务端控制台输出 |
 
 新建 HTML 页面后，请在 `frontend/index.html` 的 `.Fangtx_navGrid` 中追加对应的 `.Fangtx_navCard` 超链接（文件名含 `detail` 的页面除外）。

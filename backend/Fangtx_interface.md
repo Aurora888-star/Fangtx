@@ -226,3 +226,62 @@ GET http://localhost:8733/api/gallery
 - **修改时间**：2026-11-19 22:17:00
 
 ---
+
+## 接口：AI 聊天
+
+- **接口路径**：`/api/chat`
+- **HTTP 方法**：POST
+- **请求参数**（二选一）：
+  - `messages`：数组，多轮对话，每项 `{ role: "user"|"assistant", content: string }`
+  - `message`：字符串，单轮对话内容
+
+请求示例（多轮）：
+
+```
+POST http://localhost:8733/api/chat
+Content-Type: application/json
+
+{
+  "messages": [
+    { "role": "user", "content": "你好，请介绍一下你自己" }
+  ]
+}
+```
+
+请求示例（单轮）：
+
+```json
+{ "message": "你好" }
+```
+
+后端自动注入 system 提示「你是一个有用的助手」，调用硅基流动 `deepseek-ai/DeepSeek-V4-Flash` 模型；API Key 从 `.env` 读取。服务端控制台会完整打印发送给大模型的数据与从大模型接收到的数据。
+
+- **响应格式（成功）**：
+
+```json
+{
+  "code": 0,
+  "msg": "聊天回复成功",
+  "data": {
+    "reply": "你好！我是 DeepSeek，一个由深度求索公司创造的AI助手...",
+    "model": "deepseek-ai/DeepSeek-V4-Flash",
+    "usage": { "prompt_tokens": 14, "completion_tokens": 165, "total_tokens": 179 },
+    "requestPayload": { "model": "deepseek-ai/DeepSeek-V4-Flash", "messages": [] },
+    "rawResponse": {}
+  }
+}
+```
+
+- **响应格式（失败）**：
+
+```json
+{
+  "code": 5002,
+  "msg": "大模型请求失败: ...",
+  "data": null
+}
+```
+
+- **修改时间**：2026-11-23 14:00:54
+
+---
