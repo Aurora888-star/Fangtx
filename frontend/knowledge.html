@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<!--
+  姓名：方天箫 | 学号：24001010733 | 时间：2026-11-23 | 大模型：DeepSeek-V4.1-Flash
+  文件：knowledge.html
+  说明：知识库管理（RAG）页面，支持文件上传解析、知识库管理与基于知识库的智能问答。
+-->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="方天箫 · 知乎的模仿与制作 · 知识库 RAG 问答" />
+  <title>知识库问答 · 知乎的模仿与制作</title>
+  <link rel="stylesheet" href="css/Fangtx_knowledge.css" />
+</head>
+<body>
+  <canvas id="Fangtx_bgCanvas" class="Fangtx_bgCanvas" aria-hidden="true"></canvas>
+  <div class="Fangtx_aurora Fangtx_auroraLeft" aria-hidden="true"></div>
+  <div class="Fangtx_aurora Fangtx_auroraRight" aria-hidden="true"></div>
+
+  <div class="Fangtx_page">
+    <header class="Fangtx_topbar">
+      <div class="Fangtx_brand">
+        <span class="Fangtx_brandMark">知</span>
+        <span class="Fangtx_brandText">知乎 <em>模仿项目</em></span>
+      </div>
+      <a class="Fangtx_backLink" href="index.html">← 返回首页</a>
+    </header>
+
+    <main class="Fangtx_main">
+      <div class="Fangtx_pageHead">
+        <h1 class="Fangtx_pageTitle">知识库智能问答</h1>
+        <p class="Fangtx_pageSubtitle">RAG 检索增强 · 支持 doc / docx / ppt / pptx / pdf / txt / md · 上传解析后即可基于文档提问</p>
+      </div>
+
+      <!-- 接口链接区 -->
+      <section class="Fangtx_apiBar">
+        <div class="Fangtx_apiHead">
+          <span class="Fangtx_apiBadge">后端接口</span>
+          <span class="Fangtx_apiMethod Fangtx_methodPost">POST</span>
+          <span class="Fangtx_apiMethod Fangtx_methodGet">GET</span>
+          <span class="Fangtx_apiMethod Fangtx_methodDel">DELETE</span>
+        </div>
+        <div class="Fangtx_apiPaths">
+          <div class="Fangtx_apiPathRow"><span>GET</span><code>/api/knowledge/files</code><em>知识库文件列表</em></div>
+          <div class="Fangtx_apiPathRow"><span>POST</span><code>/api/knowledge/upload</code><em>上传并解析文件</em></div>
+          <div class="Fangtx_apiPathRow"><span>DELETE</span><code>/api/knowledge/file/:id</code><em>删除知识库文件</em></div>
+          <div class="Fangtx_apiPathRow"><span>POST</span><code>/api/knowledge/ask</code><em>基于知识库问答</em></div>
+        </div>
+      </section>
+
+      <div class="Fangtx_layout">
+        <!-- 左侧：知识库管理 -->
+        <section class="Fangtx_panel Fangtx_kbPanel">
+          <div class="Fangtx_panelHead">
+            <h2>知识库管理</h2>
+            <span class="Fangtx_badge" id="Fangtx_fileCount">0 个文件</span>
+          </div>
+
+          <!-- 上传区 -->
+          <div class="Fangtx_uploadBox" id="Fangtx_uploadBox">
+            <input type="file" id="Fangtx_fileInput" accept=".doc,.docx,.ppt,.pptx,.pdf,.txt,.md" hidden />
+            <div class="Fangtx_uploadIcon" aria-hidden="true">⬆</div>
+            <p class="Fangtx_uploadTitle">点击选择文件上传</p>
+            <p class="Fangtx_uploadHint">支持 doc / docx / ppt / pptx / pdf / txt / md，最大 10MB</p>
+          </div>
+          <div class="Fangtx_uploadStatus Fangtx_hidden" id="Fangtx_uploadStatus"></div>
+
+          <!-- 文件列表 -->
+          <div class="Fangtx_fileList" id="Fangtx_fileList">
+            <div class="Fangtx_loading">加载中…</div>
+          </div>
+        </section>
+
+        <!-- 右侧：RAG 问答 -->
+        <section class="Fangtx_panel Fangtx_chatPanel">
+          <div class="Fangtx_panelHead">
+            <h2>智能问答</h2>
+            <span class="Fangtx_badge Fangtx_badgeAi">基于知识库</span>
+          </div>
+
+          <div class="Fangtx_chatBody">
+            <div class="Fangtx_messages" id="Fangtx_messages" role="log" aria-live="polite">
+              <div class="Fangtx_empty" id="Fangtx_empty">
+                <div class="Fangtx_emptyIcon" aria-hidden="true">✦</div>
+                <p>向知识库提问吧</p>
+                <span>试试问：「客服的工作时间是什么时候？」</span>
+              </div>
+            </div>
+
+            <form class="Fangtx_inputBar" id="Fangtx_form">
+              <textarea class="Fangtx_input" id="Fangtx_input" rows="1" placeholder="输入问题，Enter 发送，Shift + Enter 换行" aria-label="输入问题"></textarea>
+              <button class="Fangtx_sendBtn" type="submit" id="Fangtx_sendBtn">
+                <span class="Fangtx_sendText">提问</span>
+                <span class="Fangtx_sendIcon" aria-hidden="true">➤</span>
+              </button>
+            </form>
+          </div>
+        </section>
+      </div>
+
+      <!-- 原始收发数据 -->
+      <section class="Fangtx_rawSection">
+        <button class="Fangtx_rawToggle" type="button" id="Fangtx_rawToggle" aria-expanded="false">
+          <span>查看发送给大模型的数据 / 从大模型接收到的数据</span>
+          <span class="Fangtx_rawArrow" aria-hidden="true">▾</span>
+        </button>
+        <pre class="Fangtx_rawBox" id="Fangtx_rawBox" hidden></pre>
+      </section>
+    </main>
+
+    <footer class="Fangtx_footer">
+      <p>方天箫 · 24001010733 · 知乎的模仿与制作（模仿）</p>
+    </footer>
+  </div>
+
+  <script src="js/Fangtx_knowledge.js"></script>
+</body>
+</html>

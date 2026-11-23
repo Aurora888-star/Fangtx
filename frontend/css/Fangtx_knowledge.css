@@ -1,0 +1,285 @@
+/*
+ * 姓名：方天箫 | 学号：24001010733 | 时间：2026-11-23 | 大模型：DeepSeek-V4.1-Flash
+ * 文件：css/Fangtx_knowledge.css
+ * 说明：知识库管理（RAG）页面样式，原生 CSS，无第三方依赖。
+ */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --Fangtx_blue: #1772f6;
+  --Fangtx_blueDeep: #0b57d0;
+  --Fangtx_blueLight: #6aa8ff;
+  --Fangtx_bg: #08101f;
+  --Fangtx_panel: rgba(255, 255, 255, 0.055);
+  --Fangtx_border: rgba(255, 255, 255, 0.12);
+  --Fangtx_text: #eef4ff;
+  --Fangtx_textSub: #9db1cf;
+  --Fangtx_ok: #35c07a;
+  --Fangtx_err: #ff6b6b;
+}
+
+html, body { width: 100%; min-height: 100%; }
+
+body {
+  font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+  background: var(--Fangtx_bg);
+  color: var(--Fangtx_text);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+.Fangtx_bgCanvas {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  z-index: 0; display: block;
+  background: radial-gradient(circle at 50% 12%, #12284f 0%, #08101f 72%);
+}
+
+.Fangtx_aurora {
+  position: fixed; z-index: 0; width: 44vw; height: 44vw;
+  border-radius: 50%; filter: blur(90px); opacity: 0.26; pointer-events: none;
+}
+.Fangtx_auroraLeft { top: -16vw; left: -12vw; background: #1772f6; }
+.Fangtx_auroraRight { right: -14vw; bottom: -20vw; background: #2546c8; }
+
+.Fangtx_page {
+  position: relative; z-index: 1;
+  width: min(1180px, calc(100% - 48px)); margin: 0 auto;
+  padding: 32px 0 56px; display: flex; flex-direction: column; min-height: 100vh;
+}
+
+/* 顶部栏 */
+.Fangtx_topbar {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding-bottom: 22px; border-bottom: 1px solid var(--Fangtx_border);
+}
+.Fangtx_brand { display: flex; align-items: center; gap: 12px; }
+.Fangtx_brandMark {
+  width: 42px; height: 42px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 800; color: #fff;
+  background: linear-gradient(135deg, var(--Fangtx_blue), var(--Fangtx_blueLight));
+  box-shadow: 0 8px 22px rgba(23, 114, 246, 0.4);
+}
+.Fangtx_brandText { font-size: 18px; font-weight: 700; letter-spacing: 0.5px; }
+.Fangtx_brandText em {
+  font-style: normal; font-size: 12px; font-weight: 400;
+  color: var(--Fangtx_textSub); margin-left: 6px; letter-spacing: 1px;
+}
+.Fangtx_backLink {
+  font-size: 13px; text-decoration: none; color: var(--Fangtx_textSub);
+  padding: 8px 14px; border-radius: 999px;
+  border: 1px solid var(--Fangtx_border); background: var(--Fangtx_panel);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.Fangtx_backLink:hover { color: #fff; border-color: var(--Fangtx_blueLight); }
+
+.Fangtx_main { flex: 1; padding-top: 36px; }
+.Fangtx_pageHead { margin-bottom: 26px; }
+.Fangtx_pageTitle {
+  font-size: clamp(28px, 4.5vw, 40px); font-weight: 800;
+  background: linear-gradient(92deg, #ffffff 15%, #a7caff 90%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.Fangtx_pageSubtitle { margin-top: 10px; font-size: 14px; color: var(--Fangtx_textSub); }
+
+/* 接口区 */
+.Fangtx_apiBar {
+  padding: 18px 22px; border-radius: 16px;
+  background: linear-gradient(135deg, rgba(23, 114, 246, 0.14), rgba(255, 255, 255, 0.04));
+  border: 1px solid var(--Fangtx_border); backdrop-filter: blur(10px);
+}
+.Fangtx_apiHead { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.Fangtx_apiBadge {
+  padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 600;
+  color: #cfe0ff; background: rgba(23, 114, 246, 0.22); border: 1px solid rgba(106, 168, 255, 0.35);
+}
+.Fangtx_apiMethod {
+  padding: 3px 9px; border-radius: 6px; font-size: 11px; font-weight: 800; letter-spacing: 0.5px;
+}
+.Fangtx_methodPost { color: #bff5d8; background: rgba(53, 192, 122, 0.16); border: 1px solid rgba(53, 192, 122, 0.35); }
+.Fangtx_methodGet { color: #cfe0ff; background: rgba(23, 114, 246, 0.18); border: 1px solid rgba(106, 168, 255, 0.35); }
+.Fangtx_methodDel { color: #ffd2d2; background: rgba(255, 107, 107, 0.14); border: 1px solid rgba(255, 107, 107, 0.35); }
+.Fangtx_apiPaths { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 8px; }
+.Fangtx_apiPathRow {
+  display: flex; align-items: center; gap: 8px; padding: 9px 12px; border-radius: 9px;
+  background: rgba(0, 0, 0, 0.22); border: 1px solid rgba(106, 168, 255, 0.2); font-size: 12px;
+}
+.Fangtx_apiPathRow span {
+  font-weight: 800; color: #bff5d8; min-width: 48px;
+  font-family: Consolas, "Courier New", monospace;
+}
+.Fangtx_apiPathRow code { color: #a7caff; font-family: Consolas, "Courier New", monospace; word-break: break-all; }
+.Fangtx_apiPathRow em { font-style: normal; color: var(--Fangtx_textSub); margin-left: auto; white-space: nowrap; }
+
+/* 两栏布局 */
+.Fangtx_layout {
+  display: grid; grid-template-columns: 380px 1fr; gap: 20px; margin-top: 24px;
+}
+.Fangtx_panel {
+  border-radius: 18px; overflow: hidden;
+  background: var(--Fangtx_panel); border: 1px solid var(--Fangtx_border);
+  backdrop-filter: blur(10px); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+  display: flex; flex-direction: column; min-height: 560px;
+}
+.Fangtx_panelHead {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 16px 20px; border-bottom: 1px solid var(--Fangtx_border);
+  background: rgba(255, 255, 255, 0.03);
+}
+.Fangtx_panelHead h2 { font-size: 15px; font-weight: 700; }
+.Fangtx_badge {
+  padding: 4px 11px; border-radius: 999px; font-size: 11px; color: #cfe0ff;
+  background: rgba(23, 114, 246, 0.2); border: 1px solid rgba(106, 168, 255, 0.3);
+}
+.Fangtx_badgeAi { color: #e0cfff; background: rgba(123, 92, 255, 0.2); border-color: rgba(123, 92, 255, 0.35); }
+
+/* 上传区 */
+.Fangtx_uploadBox {
+  margin: 16px 20px 0; padding: 22px 16px; border-radius: 14px; text-align: center; cursor: pointer;
+  border: 1.5px dashed rgba(106, 168, 255, 0.4); background: rgba(23, 114, 246, 0.06);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.Fangtx_uploadBox:hover, .Fangtx_uploadBox.Fangtx_dragOver {
+  border-color: var(--Fangtx_blueLight); background: rgba(23, 114, 246, 0.14);
+}
+.Fangtx_uploadIcon { font-size: 30px; color: var(--Fangtx_blueLight); margin-bottom: 8px; }
+.Fangtx_uploadTitle { font-size: 14px; font-weight: 700; margin-bottom: 5px; }
+.Fangtx_uploadHint { font-size: 11px; color: var(--Fangtx_textSub); line-height: 1.5; }
+.Fangtx_uploadStatus {
+  margin: 10px 20px 0; padding: 10px 13px; border-radius: 10px; font-size: 12px; line-height: 1.5;
+}
+.Fangtx_uploadStatus.Fangtx_ok { color: #bff5d8; background: rgba(53, 192, 122, 0.12); border: 1px solid rgba(53, 192, 122, 0.4); }
+.Fangtx_uploadStatus.Fangtx_err { color: #ffd2d2; background: rgba(255, 107, 107, 0.12); border: 1px solid rgba(255, 107, 107, 0.4); }
+.Fangtx_hidden { display: none; }
+
+/* 文件列表 */
+.Fangtx_fileList { flex: 1; overflow-y: auto; padding: 14px 20px 20px; display: flex; flex-direction: column; gap: 9px; }
+.Fangtx_loading { color: var(--Fangtx_textSub); font-size: 13px; text-align: center; padding: 20px; }
+.Fangtx_fileItem {
+  display: flex; align-items: center; gap: 11px; padding: 11px 12px; border-radius: 11px;
+  background: rgba(255, 255, 255, 0.04); border: 1px solid var(--Fangtx_border);
+}
+.Fangtx_fileIcon {
+  width: 36px; height: 36px; border-radius: 9px; flex: none;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 800; color: #fff;
+  background: linear-gradient(135deg, var(--Fangtx_blue), #7b5cff);
+}
+.Fangtx_fileInfo { flex: 1; min-width: 0; }
+.Fangtx_fileName {
+  font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.Fangtx_fileMeta { font-size: 11px; color: var(--Fangtx_textSub); margin-top: 3px; }
+.Fangtx_fileDelete {
+  border: none; background: transparent; cursor: pointer; color: #7186a6;
+  font-size: 17px; padding: 4px 7px; border-radius: 7px; transition: color 0.2s ease, background 0.2s ease;
+}
+.Fangtx_fileDelete:hover { color: #ff8080; background: rgba(255, 107, 107, 0.12); }
+
+/* 聊天区 */
+.Fangtx_chatBody { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+.Fangtx_messages {
+  flex: 1; height: 400px; overflow-y: auto; padding: 20px;
+  display: flex; flex-direction: column; gap: 15px; scroll-behavior: smooth;
+}
+.Fangtx_empty { margin: auto; text-align: center; color: var(--Fangtx_textSub); }
+.Fangtx_emptyIcon { font-size: 40px; color: var(--Fangtx_blueLight); margin-bottom: 10px; }
+.Fangtx_empty p { font-size: 17px; font-weight: 700; color: var(--Fangtx_text); margin-bottom: 6px; }
+.Fangtx_empty span { font-size: 12px; }
+
+.Fangtx_msgRow { display: flex; gap: 10px; align-items: flex-start; animation: Fangtx_fadeIn 0.25s ease; }
+@keyframes Fangtx_fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.Fangtx_msgRow.Fangtx_msgRowUser { flex-direction: row-reverse; }
+.Fangtx_msgAvatar {
+  width: 32px; height: 32px; border-radius: 9px; flex: none;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 800; color: #fff;
+}
+.Fangtx_msgRowUser .Fangtx_msgAvatar { background: linear-gradient(135deg, var(--Fangtx_blue), var(--Fangtx_blueLight)); }
+.Fangtx_msgRowAi .Fangtx_msgAvatar { background: linear-gradient(135deg, #7b5cff, #4a7cff); }
+.Fangtx_msgBody { max-width: 82%; display: flex; flex-direction: column; gap: 5px; }
+.Fangtx_msgRowUser .Fangtx_msgBody { align-items: flex-end; }
+.Fangtx_msgBubble {
+  padding: 12px 16px; border-radius: 14px; font-size: 14px; line-height: 1.7;
+  white-space: pre-wrap; word-break: break-word;
+  background: rgba(255, 255, 255, 0.09); border: 1px solid var(--Fangtx_border);
+}
+.Fangtx_msgRowUser .Fangtx_msgBubble {
+  background: linear-gradient(135deg, var(--Fangtx_blueDeep), var(--Fangtx_blue));
+  border-color: rgba(106, 168, 255, 0.5); color: #fff;
+}
+.Fangtx_msgRowAi .Fangtx_msgBubble { background: rgba(123, 92, 255, 0.14); border-color: rgba(123, 92, 255, 0.32); }
+.Fangtx_msgBubble.Fangtx_msgBubbleError { background: rgba(255, 107, 107, 0.14); border-color: rgba(255, 107, 107, 0.4); color: #ffd2d2; }
+.Fangtx_sources { margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--Fangtx_border); }
+.Fangtx_sourceTag {
+  display: inline-block; margin: 3px 5px 0 0; padding: 3px 9px; border-radius: 999px;
+  font-size: 11px; color: #bfe0ff; background: rgba(23, 114, 246, 0.16);
+  border: 1px solid rgba(106, 168, 255, 0.28);
+}
+.Fangtx_msgMeta { font-size: 11px; color: #7186a6; padding: 0 4px; }
+.Fangtx_msgThinking { display: inline-flex; align-items: center; gap: 6px; color: var(--Fangtx_textSub); font-size: 13px; }
+.Fangtx_msgThinking::after {
+  content: ""; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--Fangtx_blueLight); animation: Fangtx_blink 1s ease-in-out infinite;
+}
+@keyframes Fangtx_blink { 0%, 100% { opacity: 0.25; } 50% { opacity: 1; } }
+
+/* 输入区 */
+.Fangtx_inputBar {
+  display: flex; gap: 12px; align-items: flex-end; padding: 16px 20px;
+  border-top: 1px solid var(--Fangtx_border); background: rgba(0, 0, 0, 0.14);
+}
+.Fangtx_input {
+  flex: 1; min-height: 44px; max-height: 140px; resize: none;
+  padding: 12px 14px; border-radius: 12px; font-family: inherit; font-size: 14px; line-height: 1.5;
+  color: var(--Fangtx_text); background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--Fangtx_border); outline: none; transition: border-color 0.2s ease;
+}
+.Fangtx_input::placeholder { color: #7186a6; }
+.Fangtx_input:focus { border-color: var(--Fangtx_blueLight); }
+.Fangtx_sendBtn {
+  min-height: 44px; display: flex; align-items: center; gap: 8px; padding: 0 20px;
+  border-radius: 12px; font-family: inherit; font-size: 14px; font-weight: 700;
+  color: #fff; cursor: pointer; white-space: nowrap; border: none;
+  background: linear-gradient(135deg, var(--Fangtx_blue), #7b5cff);
+  box-shadow: 0 8px 20px rgba(23, 114, 246, 0.32);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.Fangtx_sendBtn:hover:not(:disabled) { transform: translateY(-2px); }
+.Fangtx_sendBtn:disabled { opacity: 0.55; cursor: not-allowed; box-shadow: none; }
+
+/* 原始数据区 */
+.Fangtx_rawSection { margin-top: 32px; }
+.Fangtx_rawToggle {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 14px 20px; border-radius: 12px; cursor: pointer; font-size: 14px; font-weight: 600;
+  color: var(--Fangtx_text); background: var(--Fangtx_panel); border: 1px solid var(--Fangtx_border);
+  transition: border-color 0.2s ease;
+}
+.Fangtx_rawToggle:hover { border-color: var(--Fangtx_blueLight); }
+.Fangtx_rawArrow { color: var(--Fangtx_blueLight); transition: transform 0.2s ease; }
+.Fangtx_rawToggle[aria-expanded="true"] .Fangtx_rawArrow { transform: rotate(180deg); }
+.Fangtx_rawBox {
+  margin-top: 12px; padding: 20px; max-height: 460px; overflow: auto; border-radius: 12px;
+  font-family: Consolas, "Courier New", monospace; font-size: 12px; line-height: 1.6;
+  color: #bfe0ff; background: rgba(0, 0, 0, 0.35); border: 1px solid var(--Fangtx_border);
+  white-space: pre-wrap; word-break: break-word;
+}
+
+.Fangtx_footer {
+  margin-top: 44px; padding-top: 22px; border-top: 1px solid var(--Fangtx_border);
+  text-align: center; font-size: 12px; letter-spacing: 1px; color: var(--Fangtx_textSub);
+}
+
+@media (max-width: 900px) {
+  .Fangtx_layout { grid-template-columns: 1fr; }
+  .Fangtx_panel { min-height: auto; }
+}
+@media (max-width: 640px) {
+  .Fangtx_page { width: calc(100% - 28px); }
+  .Fangtx_msgBody { max-width: 86%; }
+  .Fangtx_inputBar { padding: 12px; }
+  .Fangtx_sendText { display: none; }
+  .Fangtx_sendBtn { padding: 0 16px; }
+}

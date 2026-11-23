@@ -80,4 +80,57 @@ VALUES
   ('人间烟火，最抚凡人心', 'images/Fangtx_pic_10.svg', '美食', '从街边小馆到家常味道，用味蕾记录那些温暖而真实的生活瞬间。', '何味', '2026-11-09 18:10:00', 3540);
 ```
 
+## 知识库文件表 Fangtx_knowledge_file 与分块表 Fangtx_knowledge_chunk（2026-11-23 14:20:00）
+
+```sql
+-- 知识库文件表
+CREATE TABLE IF NOT EXISTS Fangtx_knowledge_file (
+  Fangtx_id INT AUTO_INCREMENT PRIMARY KEY,
+  Fangtx_filename VARCHAR(255) NOT NULL COMMENT '原始文件名',
+  Fangtx_stored_name VARCHAR(255) NOT NULL COMMENT '服务器存储文件名',
+  Fangtx_file_type VARCHAR(20) NOT NULL COMMENT '文件类型: doc/docx/ppt/pptx/pdf/txt/md',
+  Fangtx_file_size INT NOT NULL DEFAULT 0 COMMENT '文件大小(字节)',
+  Fangtx_chunk_count INT NOT NULL DEFAULT 0 COMMENT '分块数量',
+  Fangtx_status VARCHAR(20) NOT NULL DEFAULT 'ready' COMMENT '状态: ready/error',
+  Fangtx_upload_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='知识库文件表';
+
+-- 知识库文本分块表
+CREATE TABLE IF NOT EXISTS Fangtx_knowledge_chunk (
+  Fangtx_id INT AUTO_INCREMENT PRIMARY KEY,
+  Fangtx_file_id INT NOT NULL COMMENT '所属文件ID',
+  Fangtx_chunk_index INT NOT NULL COMMENT '分块序号',
+  Fangtx_content TEXT NOT NULL COMMENT '分块文本内容',
+  KEY Fangtx_idx_file (Fangtx_file_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='知识库文本分块表';
+
+-- 测试数据：8 个知识库文件
+INSERT INTO Fangtx_knowledge_file
+(Fangtx_id, Fangtx_filename, Fangtx_stored_name, Fangtx_file_type, Fangtx_file_size, Fangtx_chunk_count, Fangtx_status, Fangtx_upload_time) VALUES
+(1, '智能客服FAQ.docx', 'Fangtx_service_faq.docx', 'docx', 2708, 14, 'ready', '2026-11-23 10:00:00'),
+(2, '项目介绍.pptx', 'Fangtx_project_intro.pptx', 'pptx', 5613, 5, 'ready', '2026-11-23 10:05:00'),
+(3, '会员权益说明.txt', 'Fangtx_member_benefits.txt', 'txt', 1024, 4, 'ready', '2026-11-23 10:10:00'),
+(4, '产品保修政策.docx', 'Fangtx_warranty_policy.docx', 'docx', 2048, 6, 'ready', '2026-11-23 10:15:00'),
+(5, '退换货流程.txt', 'Fangtx_return_guide.txt', 'txt', 896, 3, 'ready', '2026-11-23 10:20:00'),
+(6, '配送服务说明.pdf', 'Fangtx_delivery.pdf', 'pdf', 3584, 5, 'ready', '2026-11-23 10:25:00'),
+(7, '账号安全指南.md', 'Fangtx_account_security.md', 'md', 1536, 4, 'ready', '2026-11-23 10:30:00'),
+(8, '支付方式介绍.pptx', 'Fangtx_payment.pptx', 'pptx', 4096, 4, 'ready', '2026-11-23 10:35:00');
+
+-- 测试数据：知识分块（33 条，节选，完整 INSERT 见 backend/Fangtx_knowledge_init.sql）
+INSERT INTO Fangtx_knowledge_chunk (Fangtx_file_id, Fangtx_chunk_index, Fangtx_content) VALUES
+(1, 0, '方天箫智能客服知识库。本文档包含常见问题的标准答复，用于自动客服系统检索。每条知识由问题与答案组成。'),
+(1, 1, '问题1：你们的工作时间是什么时候？ 答案1：我们的在线客服工作时间为每周一至周日 09:00 至 21:00，节假日照常服务。非工作时间留言会在次日 10:00 前回复。'),
+(1, 2, '问题2：如何联系人工客服？ 答案2：您可以在页面右下角点击"联系人工"按钮，或拨打客服热线 400-888-1234。高峰期建议优先使用在线客服，平均等待时间约 2 分钟。'),
+(2, 0, '知乎的模仿与制作 · 项目介绍。项目名称：知乎的模仿与制作（模仿）。开发者：方天箫，学号 24001010733。项目目标：模仿知乎的核心页面与交互，实践前后端分离开发。'),
+(2, 1, '技术架构。前端：原生 HTML / CSS / JavaScript，不使用第三方库与 CDN。后端：Node.js + Express，RESTful 风格，端口 8733。数据库：MySQL，建表与字段统一使用 Fangtx_ 前缀。AI 能力：硅基流动 DeepSeek-V4-Flash 大模型。'),
+(3, 0, '会员权益说明。注册会员享受积分累积，消费 1 元得 1 积分，积分可在积分商城兑换优惠券或实物礼品。'),
+(4, 0, '产品保修政策。大部分电子产品保修期为 1 年，主要部件保修 2 年，自购买之日起计算。'),
+(5, 0, '退换货流程。商品签收后 7 天内可无理由退货，15 天内可换货，商品需保持完好且配件齐全。'),
+(6, 0, '配送服务说明。一线城市（北上广深）次日达，其他城市 2 至 4 天，偏远地区 5 至 7 天。'),
+(7, 0, '账号安全指南。登录后在个人中心—账号安全—修改密码中操作，需验证原密码和手机验证码。'),
+(8, 0, '支付方式介绍。支持微信支付、支付宝、银联云闪付以及主流银行卡。');
+```
+
+> 完整测试数据（33 条分块）见 `backend/Fangtx_knowledge_init.sql`，在新机器上可按文件顺序完整重建。
+
 > 后续每次建表 / 改表 / 插入测试数据后，将继续按执行顺序在此追加 SQL。

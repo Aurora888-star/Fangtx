@@ -67,6 +67,10 @@ SILICONFLOW_MODEL=deepseek-ai/DeepSeek-V4-Flash
 | `/api/news` | GET | 获取科技新闻列表（来自 Fangtx_tech_news 表） |
 | `/api/gallery` | GET | 获取图文列表（来自 Fangtx_gallery 表） |
 | `/api/chat` | POST | AI 聊天：转发消息至硅基流动 DeepSeek 大模型 |
+| `/api/knowledge/files` | GET | 获取知识库文件列表 |
+| `/api/knowledge/upload` | POST | 上传并解析知识库文件（doc/docx/ppt/pptx/pdf/txt/md） |
+| `/api/knowledge/file/:id` | DELETE | 删除知识库文件 |
+| `/api/knowledge/ask` | POST | 基于知识库的 RAG 智能问答 |
 
 所有接口以 `/api/` 为前缀；统一响应格式为 `{ "code": 0, "msg": "提示信息", "data": {...} }`，`code=0` 表示成功，非 0 表示失败。详细参数与响应示例见 `backend/Fangtx_interface.md`。
 
@@ -79,5 +83,6 @@ SILICONFLOW_MODEL=deepseek-ai/DeepSeek-V4-Flash
 | 科技新闻 | frontend/news.html | 新闻列表：展示后端接口链接与数据库中的数据内容 |
 | 图文精选 | frontend/gallery.html | 图文列表：本地 SVG 封面 + 分类筛选 + 接口数据展示 |
 | AI 聊天 | frontend/chat.html | DeepSeek 多轮对话：收发数据在浏览器/服务端控制台输出 |
+| 知识库问答 | frontend/knowledge.html | RAG 知识库：文件上传解析、知识库管理、检索增强问答 |
 
 新建 HTML 页面后，请在 `frontend/index.html` 的 `.Fangtx_navGrid` 中追加对应的 `.Fangtx_navCard` 超链接（文件名含 `detail` 的页面除外）。

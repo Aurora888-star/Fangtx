@@ -285,3 +285,141 @@ Content-Type: application/json
 - **修改时间**：2026-11-23 14:00:54
 
 ---
+
+## 接口：知识库文件列表
+
+- **接口路径**：`/api/knowledge/files`
+- **HTTP 方法**：GET
+- **请求参数**：无
+
+请求示例：
+
+```
+GET http://localhost:8733/api/knowledge/files
+```
+
+- **响应格式（成功）**：
+
+```json
+{
+  "code": 0,
+  "msg": "知识库文件列表获取成功",
+  "data": {
+    "total": 8,
+    "list": [
+      {
+        "Fangtx_id": 1,
+        "Fangtx_filename": "智能客服FAQ.docx",
+        "Fangtx_file_type": "docx",
+        "Fangtx_file_size": 2708,
+        "Fangtx_chunk_count": 14,
+        "Fangtx_status": "ready",
+        "Fangtx_upload_time": "2026-11-23T02:00:00.000Z"
+      }
+    ]
+  }
+}
+```
+
+- **修改时间**：2026-11-23 14:22:56
+
+---
+
+## 接口：上传并解析知识库文件
+
+- **接口路径**：`/api/knowledge/upload`
+- **HTTP 方法**：POST（multipart/form-data）
+- **请求参数**：`file` —— 上传的文件，支持 doc/docx/ppt/pptx/pdf/txt/md，最大 10MB
+
+请求示例：
+
+```
+POST http://localhost:8733/api/knowledge/upload
+Content-Type: multipart/form-data
+
+file=@智能客服FAQ.docx
+```
+
+- **响应格式（成功）**：
+
+```json
+{
+  "code": 0,
+  "msg": "文件上传解析成功",
+  "data": {
+    "Fangtx_id": 9,
+    "Fangtx_filename": "智能客服FAQ.docx",
+    "Fangtx_file_type": "docx",
+    "Fangtx_chunk_count": 26,
+    "Fangtx_preview": "方天箫智能客服知识库..."
+  }
+}
+```
+
+- **响应格式（失败）**：`{ "code": 4004, "msg": "不支持的文件格式...", "data": null }`
+
+- **修改时间**：2026-11-23 14:22:56
+
+---
+
+## 接口：删除知识库文件
+
+- **接口路径**：`/api/knowledge/file/:id`
+- **HTTP 方法**：DELETE
+- **请求参数**：路径参数 `id` —— 文件 ID
+
+请求示例：
+
+```
+DELETE http://localhost:8733/api/knowledge/file/9
+```
+
+- **响应格式（成功）**：`{ "code": 0, "msg": "知识库文件删除成功", "data": { "Fangtx_id": 9 } }`
+
+- **修改时间**：2026-11-23 14:22:56
+
+---
+
+## 接口：基于知识库的问答（RAG）
+
+- **接口路径**：`/api/knowledge/ask`
+- **HTTP 方法**：POST
+- **请求参数**：`question` —— 用户问题（字符串）
+
+请求示例：
+
+```json
+{ "question": "客服的工作时间是什么时候？" }
+```
+
+后端先从 `Fangtx_knowledge_chunk` 表按关键词匹配检索相关分块，拼接为上下文注入 system 提示，再调用硅基流动大模型；控制台完整打印发送给大模型与从大模型接收到的数据。
+
+- **响应格式（成功）**：
+
+```json
+{
+  "code": 0,
+  "msg": "知识库问答成功",
+  "data": {
+    "reply": "我们的在线客服工作时间为每周一至周日 09:00 至 21:00...",
+    "question": "客服的工作时间是什么时候？",
+    "sources": [
+      {
+        "Fangtx_filename": "智能客服FAQ.docx",
+        "Fangtx_chunk_index": 1,
+        "Fangtx_score": 10,
+        "Fangtx_content": "问题1：你们的工作时间是什么时候？..."
+      }
+    ],
+    "usage": {},
+    "requestPayload": {},
+    "rawResponse": {}
+  }
+}
+```
+
+- **响应格式（失败）**：`{ "code": 4001, "msg": "请输入问题", "data": null }`
+
+- **修改时间**：2026-11-23 14:22:56
+
+---
